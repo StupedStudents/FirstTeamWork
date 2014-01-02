@@ -1,7 +1,7 @@
 #include <iostream>
 
 void main(){
-	int a;
+	int цкуепкваыпывапп;
 	cin >> a;
 	cout << "Your integer number: " << a;
 	return;
