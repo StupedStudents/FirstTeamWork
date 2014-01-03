@@ -26,11 +26,7 @@ public class Cell : MonoBehaviour {
 
 	void Start () {
 
-		distansce (0);
-		if (dist != 0) {
-			forces.Add(magnitude (0));
-		}
-		else forces.Add(new Vector3(0,0,0));
+		forces.Add(new Vector3(0,0,0));
 	}
 
 	public void calcInfluence(int ind){
@@ -55,7 +51,12 @@ public class Cell : MonoBehaviour {
 		if(col.tag == "Cub")
 		{
 			cubic = col.gameObject.GetComponent<Cube>();
-			col.constantForce.force = (Vector3)forces[cubic.ind];
+			if(cubic.ind != 0) {
+				col.constantForce.force = (Vector3)forces[cubic.ind];
+			}
+			else {
+				col.constantForce.force = new Vector3(0,0,0);
+			}
 		}
 	}
 	

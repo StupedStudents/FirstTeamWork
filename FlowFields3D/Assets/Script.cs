@@ -6,7 +6,7 @@ public class Script : MonoBehaviour {
 	public static ArrayList cords = new ArrayList();
 	public static ArrayList cubes = new ArrayList();
 	public static GameObject[] cub;
-	public static Vector3 finish  = new Vector3(35,2,35);
+	public static Vector3 finish  = new Vector3(0,0,0);
 	
 	float dist;
 	public static float alpha=0.5f;
@@ -44,6 +44,11 @@ public class Script : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+		/*GameObject[] curr = GameObject.FindGameObjectsWithTag ("Current");
+		if(curr.Length > 0){
+			Animator an = curr[0].GetComponent<Animator>();
+			an.Play();
+		}*/
 	}
 }
