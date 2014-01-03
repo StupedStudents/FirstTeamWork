@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-public class Cub : MonoBehaviour {
+public class Cell : MonoBehaviour {
 	public Vector3 force = new Vector3(0,0,0);
 	public float dist;
 	// Use this for initialization
