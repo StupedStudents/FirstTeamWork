@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Cube : MonoBehaviour {
-
+	public int ind = 0;
 	// Use this for initialization
 	void Start () {
 	}

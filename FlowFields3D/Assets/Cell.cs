@@ -3,23 +3,16 @@ using System.Collections;
 
 
 public class Cell : MonoBehaviour {
-	public Vector3 force = new Vector3(0,0,0);
-	public float dist;
-	// Use this for initialization
-	void Start () {
-		distansce ();
-		if (dist != 0) {
-			force = magnitude ();
-		}
-		else force = new Vector3(0,0,0);
-	}
 
-	void distansce(){
-		dist = Mathf.Sqrt (Mathf.Pow (Script.finish.x - this.transform.position.x, 2) + Mathf.Pow (Script.finish.z - this.transform.position.z, 2));
+	public ArrayList forces = new ArrayList();
+	public float dist;
+
+	public void distansce(int ind){
+		dist = Mathf.Sqrt (Mathf.Pow (((Vector3)(Script.cords[ind])).x - this.transform.position.x, 2) + Mathf.Pow (((Vector3)(Script.cords[ind])).z - this.transform.position.z, 2));
 	}
-	Vector3 magnitude(){
-		Vector3 force = new Vector3 (Mathf.Abs((Script.finish.x - this.transform.position.x)) * ((Script.finish.x - this.transform.position.x) / dist), 0,
-		                             Mathf.Abs((Script.finish.z - this.transform.position.z)) * ((Script.finish.z - this.transform.position.z) / dist));
+	public Vector3 magnitude(int ind){
+		Vector3 force = new Vector3 (Mathf.Abs((((Vector3)(Script.cords[ind])).x - this.transform.position.x)) * ((((Vector3)(Script.cords[ind])).x - this.transform.position.x) / dist), 0,
+		                             Mathf.Abs((((Vector3)(Script.cords[ind])).z - this.transform.position.z)) * ((((Vector3)(Script.cords[ind])).z - this.transform.position.z) / dist));
 		
 		if (Mathf.Abs(force.x) * 2F > 10F) {
 			force.x = 10F * Mathf.Sign(force.x);
@@ -30,16 +23,25 @@ public class Cell : MonoBehaviour {
 		return force;
 	}
 
+	void Start () {
+
+		distansce (0);
+		if (dist != 0) {
+			forces.Add(magnitude (0));
+		}
+		else forces.Add(new Vector3(0,0,0));
+	}
+
 	void OnTriggerEnter(Collider col)
 	{
 		if(col.tag == "Cub")
 		{
-			col.constantForce.force = force;
+			col.constantForce.force = (Vector3)forces[0];
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 }
