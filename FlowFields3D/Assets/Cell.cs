@@ -6,6 +6,7 @@ public class Cell : MonoBehaviour {
 
 	public ArrayList forces = new ArrayList();
 	public float dist;
+	public Cube cubic;
 
 	public void distansce(int ind){
 		dist = Mathf.Sqrt (Mathf.Pow (((Vector3)(Script.cords[ind])).x - this.transform.position.x, 2) + Mathf.Pow (((Vector3)(Script.cords[ind])).z - this.transform.position.z, 2));
@@ -32,11 +33,29 @@ public class Cell : MonoBehaviour {
 		else forces.Add(new Vector3(0,0,0));
 	}
 
-	void OnTriggerEnter(Collider col)
+	public void calcInfluence(int ind){
+		if (ind >= forces.Count) {
+			distansce (ind);
+			if (dist != 0) {
+				forces.Add (magnitude (ind));
+			} 
+			else forces.Add (new Vector3 (0, 0, 0));
+		}
+		else{
+			distansce (ind);
+			if (dist != 0) {
+				forces[ind] = (magnitude (ind));
+			} 
+			else forces[ind] = (new Vector3 (0, 0, 0));
+		}
+	}
+
+	public void OnTriggerEnter(Collider col)
 	{
 		if(col.tag == "Cub")
 		{
-			col.constantForce.force = (Vector3)forces[0];
+			cubic = col.gameObject.GetComponent<Cube>();
+			col.constantForce.force = (Vector3)forces[cubic.ind];
 		}
 	}
 	
