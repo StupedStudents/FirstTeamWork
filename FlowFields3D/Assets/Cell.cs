@@ -48,7 +48,7 @@ public class Cell : MonoBehaviour {
 
 	public void OnTriggerEnter(Collider col)
 	{
-		if(col.tag == "Cub")
+		if(col.tag == "Cub" || col.tag == "Current")
 		{
 			cubic = col.gameObject.GetComponent<Cube>();
 			if(cubic.ind != 0) {

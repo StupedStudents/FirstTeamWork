@@ -2,20 +2,25 @@
 using System.Collections;
 
 public class Click : MonoBehaviour {
-	GameObject prt, buf, lst;
+	GameObject prt, buf;
+	public GameObject[] lst;
+	public int[] delete_this;
 	public Cube cubic;
-	public Stack tags = new Stack();
+	public ArrayList tags;
 	public GameObject ter;
 	public Table field;
 	public Cell step;
 	// Use this for initialization
 	void Start () {
 		prt = GameObject.FindGameObjectWithTag ("Particle");
-		for (int i = 10; i > 0; i--) {
-			tags.Push (i);
+		tags = new ArrayList();
+		for (int i = 1; i <= 10; i++) {
+			tags.Add(i);
 		}
+		delete_this = new int[10];
 		ter = GameObject.FindGameObjectWithTag ("Terrain");
 		field = ter.GetComponent<Table> ();
+		buf = GameObject.FindGameObjectWithTag("Cub");
 	}
 	
 	// Update is called once per frame
@@ -24,50 +29,108 @@ public class Click : MonoBehaviour {
 		{
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			if(buf != null) buf.tag = "Cub";
 			int mask = 1 << 8;
-			if (Physics.Raycast(ray, out hit, 100, mask))
+		if (Physics.Raycast(ray, out hit, 100, mask))
 			{
 				GameObject tmp = hit.collider.gameObject;
 				prt.transform.position = tmp.transform.position;
-				if(buf != null){
+				if((lst = GameObject.FindGameObjectsWithTag ("Current")).Length > 0)
+				{
+					lst = GameObject.FindGameObjectsWithTag ("Current");
+					for (int i = 0; i < lst.Length - 1; i++)// ololo Bubble sort, cause fuck you, that's why!
+					{
+						for (int j = i + 1; j < lst.Length; j++)
+						{
+							if (lst[i].GetComponent<Cube>().ind > lst[j].GetComponent<Cube>().ind)
+							{
+								GameObject temp = lst[i];
+								lst[i] = lst[j];
+								lst[j] = temp;
+							}
+						}
+					}
 					Script.cords.Add(prt.transform.position);
 					Script.cubes.Add(new ArrayList());
-					cubic = buf.GetComponent<Cube>();
-					(Script.cubes[cubic.ind] as ArrayList).Remove(buf);
-
-					if(cubic.ind != 0){
-						Script.cubes.RemoveAt(cubic.ind);
-						Script.cubes.Insert(cubic.ind, Script.cubes[Script.cubes.Count - 1]);
-						Script.cords.RemoveAt(cubic.ind);
-						Script.cords.Insert(cubic.ind + 1, Script.cords[Script.cords.Count - 1]);
+					foreach(GameObject lalka in lst)
+					{
+						lalka.tag = "Cub";
+						cubic = lalka.GetComponent<Cube>();
+						(Script.cubes[cubic.ind] as ArrayList).Remove(lalka);
+						if((Script.cubes[cubic.ind] as ArrayList).Count < 1){
+							Script.cubes.RemoveAt(cubic.ind);
+							Script.cords.RemoveAt(cubic.ind);
+							for (int i = 0; i < 100; i++) {
+								for (int j = 0; j < 100; j++) {
+									step = field.table[i,j].GetComponent<Cell>();
+									step.forces.RemoveAt(cubic.ind);
+								}
+							}
+							GameObject[] lst_buf;
+							int max = cubic.ind;
+							lst_buf = GameObject.FindGameObjectsWithTag("Current");
+							foreach(GameObject lolka in lst_buf)
+							{
+								Cube tmps;
+								tmps = lolka.GetComponent<Cube>();
+								if(tmps.ind > cubic.ind)
+								{
+									if(tmps.ind > max) max = tmps.ind;
+									tmps.ind--;
+								}
+							}
+							lst_buf = GameObject.FindGameObjectsWithTag("Cub");
+							foreach(GameObject lolka in lst_buf)
+							{
+								Cube tmps;
+								tmps = lolka.GetComponent<Cube>();
+								if(tmps.ind > cubic.ind)
+								{
+									if(tmps.ind > max) max = tmps.ind;
+									tmps.ind--;
+								}
+							}
+							delete_this[0] = max;
+							if(!tags.Contains(max))tags.Add(max);
+							tags.Sort();
+						}
 					}
 
-					if((Script.cubes[cubic.ind] as ArrayList).Count <= 0){
-						Script.cubes.RemoveAt(cubic.ind);
-						Script.cords.RemoveAt(cubic.ind);
-						tags.Push (cubic.ind);
+
+	
+					int cur_tag = (int)tags[0];
+					delete_this[9] = cur_tag;
+					tags.RemoveAt(0);
+					foreach(GameObject lalka in lst)
+					{
+						cubic = lalka.GetComponent<Cube>();
+						cubic.ind = cur_tag;
+						(Script.cubes[cubic.ind] as ArrayList).Add(lalka);
 					}
-		
-					cubic.ind = (int)tags.Pop();
-					(Script.cubes[cubic.ind] as ArrayList).Add(buf);
 					for (int i = 0; i < 100; i++) {
 						for (int j = 0; j < 100; j++) {
 							step = field.table[i,j].GetComponent<Cell>();
-							step.calcInfluence(cubic.ind);
+							step.calcInfluence(cur_tag);
 						}
 					}
-					buf.transform.constantForce.force = new Vector3(10,0,0); // kick lazy cube's ass :3
-
+					foreach(GameObject lalka in lst)
+					{
+						lalka.transform.constantForce.force = new Vector3(10,0,0); // kick lazy cube's ass :3
+					}
 				}
+
 			}
 		}
 		if (Input.GetMouseButtonDown(0))
 		{
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			lst = GameObject.FindGameObjectWithTag ("Current");
-			if(lst != null) lst.tag = "Cub";
+			lst = GameObject.FindGameObjectsWithTag ("Current");
+			if(lst.Length > 0){
+				foreach(GameObject tmt in lst)
+				{
+					tmt.tag = "Cub";
+				}
+			}
 			int mask = 1 << 9;
 			if (Physics.Raycast(ray, out hit, 100, mask))
 			{
