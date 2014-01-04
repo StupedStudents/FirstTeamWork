@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AreaSelect.cs" />
      <Compile Include="Assets\Cell.cs" />
      <Compile Include="Assets\Click.cs" />
      <Compile Include="Assets\Cube.cs" />
