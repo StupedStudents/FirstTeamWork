@@ -57,12 +57,6 @@ public class Click : MonoBehaviour {
 						if((Script.cubes[cubic.ind] as ArrayList).Count < 1){
 							Script.cubes.RemoveAt(cubic.ind);
 							Script.cords.RemoveAt(cubic.ind);
-							for (int i = 0; i < 100; i++) {
-								for (int j = 0; j < 100; j++) {
-									step = field.table[i,j].GetComponent<Cell>();
-									step.forces.RemoveAt(cubic.ind);
-								}
-							}
 							GameObject[] lst_buf;
 							int max = cubic.ind;
 							lst_buf = GameObject.FindGameObjectsWithTag("Current");
@@ -101,12 +95,6 @@ public class Click : MonoBehaviour {
 						cubic = lalka.GetComponent<Cube>();
 						cubic.ind = cur_tag;
 						(Script.cubes[cubic.ind] as ArrayList).Add(lalka);
-					}
-					for (int i = 0; i < 100; i++) {
-						for (int j = 0; j < 100; j++) {
-							step = field.table[i,j].GetComponent<Cell>();
-							step.calcInfluence(cur_tag);
-						}
 					}
 					foreach(GameObject lalka in lst)
 					{

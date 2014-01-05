@@ -3,17 +3,16 @@ using System.Collections;
 
 
 public class Cell : MonoBehaviour {
-
-	public ArrayList forces = new ArrayList();
+	
 	public float dist;
 	public Cube cubic;
 
-	public void distansce(int ind){
-		dist = Mathf.Sqrt (Mathf.Pow (((Vector3)(Script.cords[ind])).x - this.transform.position.x, 2) + Mathf.Pow (((Vector3)(Script.cords[ind])).z - this.transform.position.z, 2));
+	public void distansce(int ind, Vector3 pos){
+		dist = Mathf.Sqrt (Mathf.Pow (((Vector3)(Script.cords[ind])).x - pos.x, 2) + Mathf.Pow (((Vector3)(Script.cords[ind])).z - pos.z, 2));
 	}
-	public Vector3 magnitude(int ind){
-		Vector3 force = new Vector3 (Mathf.Abs((((Vector3)(Script.cords[ind])).x - this.transform.position.x)) * ((((Vector3)(Script.cords[ind])).x - this.transform.position.x) / dist), 0,
-		                             Mathf.Abs((((Vector3)(Script.cords[ind])).z - this.transform.position.z)) * ((((Vector3)(Script.cords[ind])).z - this.transform.position.z) / dist));
+	public Vector3 magnitude(int ind, Vector3 pos){
+		Vector3 force = new Vector3 (Mathf.Abs((((Vector3)(Script.cords[ind])).x - pos.x)) * ((((Vector3)(Script.cords[ind])).x - pos.x) / dist), 0,
+		                             Mathf.Abs((((Vector3)(Script.cords[ind])).z - pos.z)) * ((((Vector3)(Script.cords[ind])).z - pos.z) / dist));
 		
 		if (Mathf.Abs(force.x) * 2F > 10F) {
 			force.x = 10F * Mathf.Sign(force.x);
@@ -25,39 +24,21 @@ public class Cell : MonoBehaviour {
 	}
 
 	void Start () {
-
-		forces.Add(new Vector3(0,0,0));
 	}
 
-	public void calcInfluence(int ind){
-		if (ind >= forces.Count) {
-			distansce (ind);
-			if (dist != 0) {
-				forces.Add (magnitude (ind));
-			} 
-			else forces.Add (new Vector3 (0, 0, 0));
-		}
-		else{
-			distansce (ind);
-			if (dist != 0) {
-				forces[ind] = (magnitude (ind));
-			} 
-			else forces[ind] = (new Vector3 (0, 0, 0));
-		}
+	public Vector3 calcInfluence(int ind, Vector3 pos){
+		 
+		distansce (ind, pos);
+		if (dist != 0) {
+			return (magnitude (ind,pos));
+		} 
+		else return(new Vector3 (0, 0, 0));
+
 	}
 
 	public void OnTriggerEnter(Collider col)
 	{
-		if(col.tag == "Cub" || col.tag == "Current")
-		{
-			cubic = col.gameObject.GetComponent<Cube>();
-			if(cubic.ind != 0) {
-				col.constantForce.force = (Vector3)forces[cubic.ind];
-			}
-			else {
-				col.constantForce.force = new Vector3(0,0,0);
-			}
-		}
+
 	}
 	
 	// Update is called once per frame
