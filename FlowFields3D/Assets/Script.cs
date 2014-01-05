@@ -9,8 +9,8 @@ public class Script : MonoBehaviour {
 	public static Vector3 finish  = new Vector3(0,0,0);
 	
 	float dist;
-	public static float alpha=0.5f;
-	public static float eps=0.6f;
+	public static float alpha=0.0005f;
+	public static float eps=3f;
 	void Start () {
 		cub = GameObject.FindGameObjectsWithTag ("Cub");
 		cords.Add (finish);
@@ -20,8 +20,9 @@ public class Script : MonoBehaviour {
 				}
 	}
 
-	public static void outDist(GameObject tmp){
+	public static Vector3 outDist(GameObject tmp){
 		float distR;
+		Vector3 force = new Vector3(0,0,0);
 		foreach (GameObject st in Script.cub) {
 			distR = Mathf.Sqrt (Mathf.Pow (st.transform.position.x - tmp.transform.position.x, 2) +
 			                           Mathf.Pow (st.transform.position.z - tmp.transform.position.z, 2));
@@ -29,17 +30,25 @@ public class Script : MonoBehaviour {
 				continue;
 			}
 			else {
-				tmp.transform.constantForce.force = tmp.transform.constantForce.force + new Vector3(
-					-1*(((st.transform.position.z - tmp.transform.position.z)/distR)*alpha)
+				 force +=  tmp.transform.constantForce.force + new Vector3(
+					(Mathf.Cos(3.14F/4F)*(alpha))
 					/
-					(distR/((eps*alpha)+1)),
+					(distR/((eps*alpha))+1),
 					0,
-					(((st.transform.position.x - tmp.transform.position.x)/distR)*alpha)
+					(alpha)
 					/
-					(distR/((eps*alpha)+1)));
+					(distR/((eps*alpha)))+1);
+				if (Mathf.Abs(force.x) * 2F > 10F) {
+					force.x = 10F * Mathf.Sign(force.x);
+				}
+				if (Mathf.Abs(force.z) * 2f > 10F) {
+					force.z = 10F * Mathf.Sign(force.z);
+				}
+				return force;
 			}
 
 		}
+		return force;
 	}
 	
 	// Update is called once per frame

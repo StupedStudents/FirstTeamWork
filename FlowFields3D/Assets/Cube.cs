@@ -11,12 +11,11 @@ public class Cube : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-		Script.outDist (this.gameObject);
+		this.transform.constantForce.force = force.calcInfluence(ind,this.transform.position) + Script.outDist (this.gameObject);
 	}
 
 	void FixedUpdate()
 	{
-		this.transform.constantForce.force = force.calcInfluence(ind,this.transform.position);
+	
 	}
 }
