@@ -109,7 +109,10 @@ public class AreaSelect : MonoBehaviour
 						Vector3 goPos = go.transform.position;
 						if (goPos.x > point1.x && goPos.x < point2.x && goPos.z < point1.z && goPos.z > point2.z) {
 								go.tag = "Current";
-						
+						}
+						else
+						{
+							go.tag = "Cub";
 						}
 				}
 		}	

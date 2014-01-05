@@ -4,7 +4,6 @@ using System.Collections;
 public class Click : MonoBehaviour {
 	GameObject prt, buf;
 	public GameObject[] lst;
-	public int[] delete_this;
 	public Cube cubic;
 	public ArrayList tags;
 	public GameObject ter;
@@ -17,7 +16,6 @@ public class Click : MonoBehaviour {
 		for (int i = 1; i <= 10; i++) {
 			tags.Add(i);
 		}
-		delete_this = new int[10];
 		ter = GameObject.FindGameObjectWithTag ("Terrain");
 		field = ter.GetComponent<Table> ();
 		buf = GameObject.FindGameObjectWithTag("Cub");
@@ -89,7 +87,6 @@ public class Click : MonoBehaviour {
 									tmps.ind--;
 								}
 							}
-							delete_this[0] = max;
 							if(!tags.Contains(max))tags.Add(max);
 							tags.Sort();
 						}
@@ -98,7 +95,6 @@ public class Click : MonoBehaviour {
 
 	
 					int cur_tag = (int)tags[0];
-					delete_this[9] = cur_tag;
 					tags.RemoveAt(0);
 					foreach(GameObject lalka in lst)
 					{
