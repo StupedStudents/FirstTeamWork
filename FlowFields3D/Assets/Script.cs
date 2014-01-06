@@ -7,10 +7,11 @@ public class Script : MonoBehaviour {
 	public static ArrayList cubes = new ArrayList();
 	public static GameObject[] cub;
 	public static Vector3 finish  = new Vector3(0,0,0);
+	public Cell Super_cell;
 	
 	float dist;
-	public static float alpha=0.0005f;
-	public static float eps=3f;
+	public static float alpha=10f;
+	public static float eps=10f;
 	void Start () {
 		cub = GameObject.FindGameObjectsWithTag ("Cub");
 		cords.Add (finish);
@@ -18,11 +19,13 @@ public class Script : MonoBehaviour {
 		foreach (GameObject t in cub) {
 						(cubes [0] as ArrayList).Add (t);
 				}
+		Super_cell = GameObject.FindGameObjectWithTag("Cell").GetComponent<Cell>();
 	}
 
-	public static Vector3 outDist(GameObject tmp){
+	public Vector3 outDist(GameObject tmp, int ind){
 		float distR;
-		Vector3 force = new Vector3(0,0,0);
+		Vector3 buf = new Vector3(0,0,0);
+		Vector3 force = Super_cell.calcInfluence(ind,tmp.transform.position);
 		foreach (GameObject st in Script.cub) {
 			distR = Mathf.Sqrt (Mathf.Pow (st.transform.position.x - tmp.transform.position.x, 2) +
 			                           Mathf.Pow (st.transform.position.z - tmp.transform.position.z, 2));
@@ -30,21 +33,27 @@ public class Script : MonoBehaviour {
 				continue;
 			}
 			else {
-				 force +=  tmp.transform.constantForce.force + new Vector3(
-					(Mathf.Cos(3.14F/4F)*(alpha))
+				/* force += new Vector3(
+					(alpha)
 					/
 					(distR/((eps*alpha))+1),
 					0,
 					(alpha)
 					/
-					(distR/((eps*alpha)))+1);
-				if (Mathf.Abs(force.x) * 2F > 10F) {
-					force.x = 10F * Mathf.Sign(force.x);
+					(distR/((eps*alpha))+1));*/
+
+				buf = new Vector3(tmp.transform.position.x - st.transform.position.x,0
+				                     ,tmp.transform.position.z - st.transform.position.z);
+				buf.x = 2f/buf.x;
+				buf.z = 2f/buf.z;
+				if (Mathf.Abs(buf.x) * 2F > 10F) {
+					buf.x = 10F * Mathf.Sign(buf.x);
 				}
-				if (Mathf.Abs(force.z) * 2f > 10F) {
-					force.z = 10F * Mathf.Sign(force.z);
+				if (Mathf.Abs(buf.z) * 2f > 10F) {
+					buf.z = 10F * Mathf.Sign(buf.z);
 				}
-				return force;
+				force += buf * 5f;
+				return force/2f;
 			}
 
 		}
