@@ -1,15 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Sphere.cs">
     <Files>
-      <File FileName="Assets\Cell.cs" Line="11" Column="1" />
-      <File FileName="Assets\Cube.cs" Line="18" Column="4" />
-      <File FileName="Assets\Script.cs" Line="11" Column="2" />
-      <File FileName="Assets\SphereTrigger.cs" Line="13" Column="20" />
-      <File FileName="Assets\Click.cs" Line="108" Column="88" />
+      <File FileName="Assets\Cell.cs" Line="1" Column="1" />
+      <File FileName="Assets\Cube.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script.cs" Line="1" Column="1" />
+      <File FileName="Assets\SphereTrigger.cs" Line="1" Column="1" />
+      <File FileName="Assets\Click.cs" Line="1" Column="1" />
       <File FileName="Assets\AreaSelect.cs" Line="1" Column="1" />
-      <File FileName="Assets\Sphere.cs" Line="20" Column="6" />
-      <File FileName="Assets\Table.cs" Line="11" Column="32" />
+      <File FileName="Assets\Sphere.cs" Line="58" Column="17" />
+      <File FileName="Assets\Table.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
