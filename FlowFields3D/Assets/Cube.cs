@@ -15,11 +15,19 @@ public class Cube : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		//this.transform.constantForce.force = Script.outDist (this.gameObject);
 	}
 
 	void FixedUpdate()
 	{
-		this.transform.constantForce.force = ter.outDist (this.gameObject,ind);
+		if(ind != 0)
+		{
+			this.transform.constantForce.force = force.calcInfluence(ind,this.transform.position);
+		}
+		else
+		{
+			this.transform.constantForce.force = new Vector3(0,0,0);
+		}
+
+
 	}
 }

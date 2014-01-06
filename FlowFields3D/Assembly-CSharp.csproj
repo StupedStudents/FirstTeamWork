@@ -52,6 +52,7 @@
      <Compile Include="Assets\Cube.cs" />
      <Compile Include="Assets\MoveCamera.cs" />
      <Compile Include="Assets\Script.cs" />
+     <Compile Include="Assets\SphereTrigger.cs" />
      <Compile Include="Assets\Table.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Shaders\Glass-Stained-BumpDistort.shader" />
