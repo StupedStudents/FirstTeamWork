@@ -5,12 +5,10 @@ public class Script : MonoBehaviour {
 
 	public static ArrayList cords = new ArrayList();
 	public static ArrayList cubes = new ArrayList();
+	public static ArrayList points = new ArrayList();
 	public static GameObject[] cub;
 	public static Vector3 finish  = new Vector3(0,0,0);
-	
-	float dist;
-	public static float alpha=10f;
-	public static float eps=10f;
+
 	void Start () {
 		cub = GameObject.FindGameObjectsWithTag ("Cub");
 		cords.Add (finish);
@@ -18,6 +16,7 @@ public class Script : MonoBehaviour {
 		foreach (GameObject t in cub) {
 						(cubes [0] as ArrayList).Add (t);
 				}
+		points.Add(GameObject.FindGameObjectWithTag("Particle"));
 	}
 	// Update is called once per frame
 	void Update () {

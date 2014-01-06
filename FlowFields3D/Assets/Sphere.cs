@@ -3,15 +3,61 @@ using System.Collections;
 
 public class Sphere : MonoBehaviour {
 	// Use this for initialization
+	GameObject prt;
+	public Click tagd;
 	void Start () {
-		
+		tagd = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Click>();
+
 	}
 
 	void OnTriggerStay(Collider col){
+		if(!Script.cords.Contains(this.transform.position)) return;
 		if ((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().ind == Script.cords.IndexOf (this.transform.position)) {
 			Cube tmp = col.GetComponent<Cube> ();
-			if ((float)Time.realtimeSinceStartup - tmp.inTime > 8) {
-				tmp.ind =0;
+			if ((float)Time.realtimeSinceStartup - tmp.inTime > this.GetComponent<SphereCollider>().radius) {
+				prt = Script.points[tmp.ind] as GameObject;
+				(Script.cubes[tmp.ind] as ArrayList).Remove(col.gameObject);
+			//mark:
+				if((Script.cubes[tmp.ind] as ArrayList).Count < 1){
+				
+					Script.cubes.RemoveAt(tmp.ind);
+					Script.cords.RemoveAt(tmp.ind);
+
+					Script.points.RemoveAt(tmp.ind);
+					Destroy(prt);
+					GameObject[] lst_buf;
+					int max = col.GetComponent<Cube>().ind;
+					lst_buf = GameObject.FindGameObjectsWithTag("Current");
+					foreach(GameObject lolka in lst_buf)
+					{
+						Cube tmps;
+						tmps = lolka.GetComponent<Cube>();
+						if(tmps.ind > tmp.ind)
+						{
+							if(tmps.ind > max) max = tmps.ind;
+							tmps.ind--;
+						}
+					}
+					lst_buf = GameObject.FindGameObjectsWithTag("Cub");
+					foreach(GameObject lolka in lst_buf)
+					{
+						Cube tmps;
+						tmps = lolka.GetComponent<Cube>();
+						if(tmps.ind > tmp.ind)
+						{
+							if(tmps.ind > max) max = tmps.ind;
+							tmps.ind--;
+						}
+					}
+					if(!tagd.tags.Contains(max)) tagd.tags.Add(max);
+					tagd.tags.Sort();
+				}
+
+				//if(Script.cubes.Contains(tmp.ind) && (Script.cubes[tmp.ind] as ArrayList).Count < 1) goto mark;
+
+				tmp.ind = 0;
+
+				(Script.cubes[tmp.ind] as ArrayList).Add(col);
 			}
 		}
 	}
@@ -24,6 +70,6 @@ public class Sphere : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 }

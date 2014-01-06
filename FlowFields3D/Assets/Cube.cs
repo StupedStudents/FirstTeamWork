@@ -14,6 +14,14 @@ public class Cube : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if(this.name != "Eqv")
+		{
+			if(this.tag == "Current")
+			{
+				this.transform.GetChild(0).renderer.enabled = true;
+			}
+			else this.transform.GetChild(0).renderer.enabled = false;
+		}
 
 	}
 
