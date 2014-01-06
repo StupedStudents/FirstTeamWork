@@ -5,11 +5,11 @@ public class Cube : MonoBehaviour {
 	public int ind = 0;
 	public Cell force;
 	public Script ter;
+	public float inTime =0;
 	// Use this for initialization
 	void Start () {
 		force = GameObject.FindGameObjectWithTag("Cell").GetComponent<Cell>();
 		ter = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Script>();
-
 	}
 
 	// Update is called once per frame
