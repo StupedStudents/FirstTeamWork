@@ -5,7 +5,6 @@ public class Table : MonoBehaviour {
 	public const int m = 100, n = 100;
 	public GameObject[,] table = new GameObject[m,n];
 	GameObject buf;
-	// Use this for initialization
 	void Start () {
 		buf = GameObject.FindGameObjectWithTag("Cell");
 		for (int i = 0; i < m; i++) {
@@ -14,8 +13,6 @@ public class Table : MonoBehaviour {
 			}
 		}
 	}
-	
-	// Update is called once per frame
 	void Update () {
 	
 	}

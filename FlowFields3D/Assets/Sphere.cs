@@ -2,14 +2,12 @@
 using System.Collections;
 
 public class Sphere : MonoBehaviour {
-	// Use this for initialization
 	GameObject prt;
 	public Click tagd;
 	void Start () {
 		tagd = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Click>();
 
 	}
-
 	void OnTriggerStay(Collider col){
 		if(!Script.cords.Contains(this.transform.position)) return;
 		if ((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().ind == Script.cords.IndexOf (this.transform.position)) {
@@ -17,7 +15,6 @@ public class Sphere : MonoBehaviour {
 			if ((float)Time.realtimeSinceStartup - tmp.inTime > this.GetComponent<SphereCollider>().radius) {
 				prt = Script.points[tmp.ind] as GameObject;
 				(Script.cubes[tmp.ind] as ArrayList).Remove(col.gameObject);
-			//mark:
 				if((Script.cubes[tmp.ind] as ArrayList).Count < 1){
 				
 					Script.cubes.RemoveAt(tmp.ind);
@@ -52,10 +49,8 @@ public class Sphere : MonoBehaviour {
 					if(!tagd.tags.Contains(max)) tagd.tags.Add(max);
 					tagd.tags.Sort();
 				}
-
-				//if(Script.cubes.Contains(tmp.ind) && (Script.cubes[tmp.ind] as ArrayList).Count < 1) goto mark;
-
 				tmp.ind = 0;
+				col.GetComponent<Cube>().cur = col.transform.position;
 
 				(Script.cubes[tmp.ind] as ArrayList).Add(col);
 			}
@@ -68,7 +63,6 @@ public class Sphere : MonoBehaviour {
 			tmp.inTime = Time.realtimeSinceStartup;
 		}
 	}
-	// Update is called once per frame
 	void Update () {
 
 	}

@@ -28,7 +28,6 @@ public class AreaSelect : MonoBehaviour
 				terrainLayerMask = 1 << 0;
 				nonTerrainLayerMask = ~(1 << 0);
 		}
-	
 		void OnGUI ()
 		{
 				if (mouseLeftDrag) {	
@@ -38,11 +37,8 @@ public class AreaSelect : MonoBehaviour
 						GUI.DrawTexture (rect, selectionTexture, ScaleMode.StretchToFill, true);
 				}
 		}
-	
 		void Update ()
 		{
-
-
 				if (Input.GetMouseButtonDown (0)) {  
 						Mouse1Down (Input.mousePosition);
 				}
@@ -56,10 +52,8 @@ public class AreaSelect : MonoBehaviour
 						mouseButton2DownPoint = Input.mousePosition;
 				}   
 		}
-
 		void Mouse1DownDrag (Vector2 screenPosition)
 		{
-
 				if (screenPosition != mouseButton1DownPoint) {
 						mouseLeftDrag = true;
 						mouseButton1UpPoint = screenPosition;	
@@ -71,7 +65,6 @@ public class AreaSelect : MonoBehaviour
 						}	
 				}
 		}
-	
 		void Mouse1Down (Vector2 screenPosition)
 		{
 				mouseButton1DownPoint = screenPosition;
@@ -90,7 +83,6 @@ public class AreaSelect : MonoBehaviour
 						}
 				}
 		}
-
 		public void SelectUnitsInArea (Vector3 point1, Vector3 point2)
 		{
 				if (point2.x < point1.x) {

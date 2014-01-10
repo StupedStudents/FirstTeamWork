@@ -1,6 +1,22 @@
 ﻿<Properties>
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Cube.cs">
+    <Files>
+      <File FileName="Assets\Cell.cs" Line="42" Column="1" />
+      <File FileName="Assets\Cube.cs" Line="31" Column="3" />
+      <File FileName="Assets\Script.cs" Line="19" Column="3" />
+      <File FileName="Assets\SphereTrigger.cs" Line="31" Column="59" />
+      <File FileName="Assets\Click.cs" Line="35" Column="2" />
+      <File FileName="Assets\AreaSelect.cs" Line="30" Column="4" />
+      <File FileName="Assets\Sphere.cs" Line="10" Column="3" />
+      <File FileName="Assets\Table.cs" Line="20" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+=======
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench />
+>>>>>>> 5f1d1a960fd58163fb07d21e04b72cd7587c6183
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

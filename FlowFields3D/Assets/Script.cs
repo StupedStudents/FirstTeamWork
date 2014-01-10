@@ -8,7 +8,6 @@ public class Script : MonoBehaviour {
 	public static ArrayList points = new ArrayList();
 	public static GameObject[] cub;
 	public static Vector3 finish  = new Vector3(0,0,0);
-
 	void Start () {
 		cub = GameObject.FindGameObjectsWithTag ("Cub");
 		cords.Add (finish);
@@ -18,7 +17,6 @@ public class Script : MonoBehaviour {
 				}
 		points.Add(GameObject.FindGameObjectWithTag("Particle"));
 	}
-	// Update is called once per frame
 	void Update () {
 
 	}

@@ -6,7 +6,6 @@ public class Cell : MonoBehaviour {
 	
 	public float dist;
 	public Cube cubic;
-
 	public void distansce(int ind, Vector3 pos){
 		dist = Mathf.Sqrt (Mathf.Pow (((Vector3)(Script.cords[ind])).x - pos.x, 2) + Mathf.Pow (((Vector3)(Script.cords[ind])).z - pos.z, 2));
 	}
@@ -22,10 +21,8 @@ public class Cell : MonoBehaviour {
 		}
 		return force;
 	}
-
 	void Start () {
 	}
-
 	public Vector3 calcInfluence(int ind, Vector3 pos){
 		 
 		distansce (ind, pos);
@@ -33,15 +30,11 @@ public class Cell : MonoBehaviour {
 			return (magnitude (ind,pos));
 		} 
 		else return(new Vector3 (0, 0, 0));
-
 	}
-
 	public void OnTriggerEnter(Collider col)
 	{
 
 	}
-	
-	// Update is called once per frame
 	void Update () {
 
 	}

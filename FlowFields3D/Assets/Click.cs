@@ -10,7 +10,7 @@ public class Click : MonoBehaviour {
 	public Table field;
 	public Cell step;
 	public GameObject spr;
-	// Use this for initialization
+
 	void Start () {
 		tags = new ArrayList();
 		for (int i = 1; i <= 10; i++) {
@@ -19,11 +19,9 @@ public class Click : MonoBehaviour {
 		ter = GameObject.FindGameObjectWithTag ("Terrain");
 		field = ter.GetComponent<Table> ();
 		buf = GameObject.FindGameObjectWithTag("Cub");
-		//spr = GameObject.Find("Rad");
 		prt = new GameObject();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		if (Input.GetMouseButtonDown(2))
 		{
@@ -91,7 +89,6 @@ public class Click : MonoBehaviour {
 							tags.Sort();
 						}
 					}
-
 					int cur_tag = (int)tags[0];
 					tags.RemoveAt(0);
 					foreach(GameObject lalka in lst)
@@ -100,10 +97,6 @@ public class Click : MonoBehaviour {
 						cubic.ind = cur_tag;
 						(Script.cubes[cubic.ind] as ArrayList).Add(lalka);
 					}
-					foreach(GameObject lalka in lst)
-					{
-						lalka.transform.constantForce.force = new Vector3(10,0,0); // kick lazy cube's ass :3
-					}
 				}
 				spr = (Script.points[(Script.points.Count - 1)] as GameObject).transform.GetChild(0).gameObject;
 				if(Script.cords.Contains(spr.transform.position))
@@ -111,8 +104,6 @@ public class Click : MonoBehaviour {
 					spr.GetComponent<SphereCollider>().radius =
 						((Script.cubes[Script.cords.IndexOf (spr.transform.position)] as ArrayList).Count + 5)/2f;
 				}
-
-
 			}
 		}
 		if (Input.GetMouseButtonDown(0))
