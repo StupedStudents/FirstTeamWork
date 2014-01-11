@@ -4,23 +4,25 @@ using System.Collections;
 public class Sphere : MonoBehaviour {
 	GameObject prt;
 	public Click tagd;
+	public Script script;
 	void Start () {
 		tagd = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Click>();
+		script = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Script>();
 
 	}
 	void OnTriggerStay(Collider col){
-		if(!Script.cords.Contains(this.transform.position)) return;
-		if ((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().ind == Script.cords.IndexOf (this.transform.position)) {
+		if(!script.cords.Contains(this.transform.position)) return;
+		if ((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().ind == script.cords.IndexOf (this.transform.position)) {
 			Cube tmp = col.GetComponent<Cube> ();
 			if ((float)Time.realtimeSinceStartup - tmp.inTime > this.GetComponent<SphereCollider>().radius) {
-				prt = Script.points[tmp.ind] as GameObject;
-				(Script.cubes[tmp.ind] as ArrayList).Remove(col.gameObject);
-				if((Script.cubes[tmp.ind] as ArrayList).Count < 1){
+				prt = script.points[tmp.ind] as GameObject;
+				(script.cubes[tmp.ind] as ArrayList).Remove(col.gameObject);
+				if((script.cubes[tmp.ind] as ArrayList).Count < 1){
 				
-					Script.cubes.RemoveAt(tmp.ind);
-					Script.cords.RemoveAt(tmp.ind);
+					script.cubes.RemoveAt(tmp.ind);
+					script.cords.RemoveAt(tmp.ind);
 
-					Script.points.RemoveAt(tmp.ind);
+					script.points.RemoveAt(tmp.ind);
 					Destroy(prt);
 					GameObject[] lst_buf;
 					int max = col.GetComponent<Cube>().ind;
@@ -52,13 +54,13 @@ public class Sphere : MonoBehaviour {
 				tmp.ind = 0;
 				col.GetComponent<Cube>().cur = col.transform.position;
 
-				(Script.cubes[tmp.ind] as ArrayList).Add(col);
+				(script.cubes[tmp.ind] as ArrayList).Add(col);
 			}
 		}
 	}
 
 	void OnTriggerEnter(Collider col){
-		if ((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().ind == Script.cords.IndexOf (this.transform.position)) {
+		if ((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().ind == script.cords.IndexOf (this.transform.position)) {
 			Cube tmp = col.GetComponent<Cube>();
 			tmp.inTime = Time.realtimeSinceStartup;
 		}

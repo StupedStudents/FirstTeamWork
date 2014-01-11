@@ -10,12 +10,14 @@ public class Click : MonoBehaviour {
 	public Table field;
 	public Cell step;
 	public GameObject spr;
+	public Script script;
 
 	void Start () {
 		tags = new ArrayList();
 		for (int i = 1; i <= 10; i++) {
 			tags.Add(i);
 		}
+		script = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Script>();
 		ter = GameObject.FindGameObjectWithTag ("Terrain");
 		field = ter.GetComponent<Table> ();
 		buf = GameObject.FindGameObjectWithTag("Cub");
@@ -27,14 +29,13 @@ public class Click : MonoBehaviour {
 		{
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			int mask = 1 << 8;
+			int mask = 1 << 0;
 		if (Physics.Raycast(ray, out hit, 100, mask))
 			{
-				GameObject tmp = hit.collider.gameObject;
 				if((lst = GameObject.FindGameObjectsWithTag ("Current")).Length > 0)
 				{
-					Script.points.Add(Instantiate((Script.points[0] as GameObject),(tmp.transform.position),new Quaternion()) as GameObject);
-					(Script.points[(Script.points.Count - 1)] as GameObject).transform.Rotate(new Vector3(270,0,0));
+					script.points.Add(Instantiate((script.points[0] as GameObject),(hit.point),new Quaternion()) as GameObject);
+					(script.points[(script.points.Count - 1)] as GameObject).transform.Rotate(new Vector3(270,0,0));
 					lst = GameObject.FindGameObjectsWithTag ("Current");
 					for (int i = 0; i < lst.Length - 1; i++)// ololo Bubble sort, cause fuck you, that's why!
 					{
@@ -48,18 +49,19 @@ public class Click : MonoBehaviour {
 							}
 						}
 					}
-					Script.cords.Add(tmp.transform.position);
-					Script.cubes.Add(new ArrayList());
+					script.cords.Add(hit.point);
+					script.cubes.Add(new ArrayList());
 					foreach(GameObject lalka in lst)
 					{
 						lalka.tag = "Cub";
+
 						cubic = lalka.GetComponent<Cube>();
-						(Script.cubes[cubic.ind] as ArrayList).Remove(lalka);
-						if((Script.cubes[cubic.ind] as ArrayList).Count < 1){
-							Script.cubes.RemoveAt(cubic.ind);
-							Script.cords.RemoveAt(cubic.ind);
-							prt = Script.points[cubic.ind] as GameObject;
-							Script.points.RemoveAt(cubic.ind);
+						(script.cubes[cubic.ind] as ArrayList).Remove(lalka);
+						if((script.cubes[cubic.ind] as ArrayList).Count < 1){
+							script.cubes.RemoveAt(cubic.ind);
+							script.cords.RemoveAt(cubic.ind);
+							prt = script.points[cubic.ind] as GameObject;
+							script.points.RemoveAt(cubic.ind);
 							Destroy(prt);
 							GameObject[] lst_buf;
 							int max = cubic.ind;
@@ -95,14 +97,14 @@ public class Click : MonoBehaviour {
 					{
 						cubic = lalka.GetComponent<Cube>();
 						cubic.ind = cur_tag;
-						(Script.cubes[cubic.ind] as ArrayList).Add(lalka);
+						(script.cubes[cubic.ind] as ArrayList).Add(lalka);
 					}
 				}
-				spr = (Script.points[(Script.points.Count - 1)] as GameObject).transform.GetChild(0).gameObject;
-				if(Script.cords.Contains(spr.transform.position))
+				spr = (script.points[(script.points.Count - 1)] as GameObject).transform.Find ("Rad").gameObject;
+				if(script.cords.Contains(spr.transform.position))
 				{
 					spr.GetComponent<SphereCollider>().radius =
-						((Script.cubes[Script.cords.IndexOf (spr.transform.position)] as ArrayList).Count + 5)/2f;
+						((script.cubes[script.cords.IndexOf (spr.transform.position)] as ArrayList).Count + 5)/2f;
 				}
 			}
 		}

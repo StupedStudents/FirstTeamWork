@@ -9,7 +9,7 @@ public class Cube : MonoBehaviour {
 	public Vector3 cur = new Vector3(0,0,0);
 	// Use this for initialization
 	void Start () {
-		force = GameObject.FindGameObjectWithTag("Cell").GetComponent<Cell>();
+		force = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Cell>();
 		ter = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Script>();
 		cur = this.transform.position;
 		cur.y = 1;
@@ -21,14 +21,15 @@ public class Cube : MonoBehaviour {
 		{
 			if(this.tag == "Current")
 			{
-				this.transform.GetChild(0).renderer.enabled = true;
+				this.transform.Find ("Anim").renderer.enabled = true;
 			}
-			else this.transform.GetChild(0).renderer.enabled = false;
+			else this.transform.Find ("Anim").renderer.enabled = false;
 		}
 	}
 
 	void FixedUpdate()
 	{
+
 		if((float)Time.realtimeSinceStartup - times > 10 && this.tag == "Current")
 		{
 			times = Time.realtimeSinceStartup;
@@ -37,6 +38,10 @@ public class Cube : MonoBehaviour {
 		if(ind != 0)
 		{
 			this.transform.constantForce.force = force.calcInfluence(ind,this.transform.position);
+			this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
+			                                           Quaternion.LookRotation((Vector3)(ter.cords[ind]) 
+			                       						 - this.transform.position), 5 * Time.deltaTime);
+
 		}
 		else
 		{
@@ -47,11 +52,11 @@ public class Cube : MonoBehaviour {
 			{
 				forc = new Vector3(cur.x - this.transform.position.x ,0
 				                   ,cur.z - this.transform.position.z);
-				if (Mathf.Abs(forc.x) > 5F) {
-					forc.x = 5F * Mathf.Sign(forc.x);
+				if (Mathf.Abs(forc.x) > 10F) {
+					forc.x = 10F * Mathf.Sign(forc.x);
 				}
 				if (Mathf.Abs(forc.z) > 5F) {
-					forc.z = 5F * Mathf.Sign(forc.z);
+					forc.z = 10F * Mathf.Sign(forc.z);
 				}
 			}
 			this.transform.constantForce.force = forc ;
