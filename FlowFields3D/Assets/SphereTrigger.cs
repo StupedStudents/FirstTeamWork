@@ -14,8 +14,10 @@ public class SphereTrigger : MonoBehaviour {
 	{
 		if(coll.tag == "Cub" || coll.tag == "Current")
 		{
+
+
 			Ray ray = new Ray();
-			ray.direction = coll.transform.position.normalized;
+			ray.direction = coll.transform.constantForce.force.normalized;
 			if(ray.direction == new Vector3(0,0,0))
 			{
 				norm = new Vector3(0,0,0);
@@ -57,18 +59,11 @@ public class SphereTrigger : MonoBehaviour {
 				buf.z = 10f/3F * Mathf.Sign(buf.z); 
 			}
 			col.transform.constantForce.force = force;
-			col.transform.constantForce.force += buf * 10f;
+			col.transform.constantForce.force += buf * 10f + new Vector3(Random.value*10F - 5F,0,Random.value*10F - 5F);
 
-			if(col.transform.FindChild("Sphere").GetComponent<SphereTrigger>().norm == new Vector3(0,0,0))
+			if(col.transform.FindChild("Sphere").GetComponent<SphereTrigger>().norm != new Vector3(0,0,0))
 			{
-				float dot = col.transform.FindChild("Sphere").GetComponent<SphereTrigger>().norm.x * col.transform.constantForce.force.x
-					+ col.transform.FindChild("Sphere").GetComponent<SphereTrigger>().norm.y * col.transform.constantForce.force.y 
-						+ col.transform.FindChild("Sphere").GetComponent<SphereTrigger>().norm.z * col.transform.constantForce.force.z;
-				Vector3 n = new Vector3(0,0,0);
-				
-				n = col.transform.FindChild("Sphere").GetComponent<SphereTrigger>().norm * dot;
-				n = col.transform.constantForce.force - n * 2f;
-				col.transform.constantForce.force = n;
+				col.constantForce.force = Vector3.Reflect(col.constantForce.force,col.transform.FindChild("Sphere").GetComponent<SphereTrigger>().norm);
 			}
 
 
@@ -77,5 +72,12 @@ public class SphereTrigger : MonoBehaviour {
 	}
 	void Update () {
 
+	}
+
+	void FixedUpdate(){
+						if (this.transform.parent.GetComponent<Cube> ().move)
+								this.transform.parent.GetComponent<Cube> ().rigidbody.isKinematic = false;
+						else
+								this.transform.parent.GetComponent<Cube> ().rigidbody.isKinematic = true;
 	}
 }

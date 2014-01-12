@@ -54,6 +54,7 @@ public class Click : MonoBehaviour {
 					foreach(GameObject lalka in lst)
 					{
 						lalka.tag = "Cub";
+						lalka.GetComponent<Cube>().move = true;
 
 						cubic = lalka.GetComponent<Cube>();
 						(script.cubes[cubic.ind] as ArrayList).Remove(lalka);
@@ -104,7 +105,7 @@ public class Click : MonoBehaviour {
 				if(script.cords.Contains(spr.transform.position))
 				{
 					spr.GetComponent<SphereCollider>().radius =
-						((script.cubes[script.cords.IndexOf (spr.transform.position)] as ArrayList).Count + 5)/2f;
+						((script.cubes[script.cords.IndexOf (spr.transform.position)] as ArrayList).Count + 5);
 				}
 			}
 		}
