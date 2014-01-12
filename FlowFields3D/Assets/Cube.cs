@@ -58,11 +58,11 @@ public class Cube : MonoBehaviour {
 			{
 				forc = new Vector3(cur.x - this.transform.position.x ,0
 				                   ,cur.z - this.transform.position.z);
-				if (Mathf.Abs(forc.x) > 10F) {
-					forc.x = 10F * Mathf.Sign(forc.x);
+				if (Mathf.Abs(forc.x) > 5F) {
+					forc.x = 5F * Mathf.Sign(forc.x);
 				}
 				if (Mathf.Abs(forc.z) > 5F) {
-					forc.z = 10F * Mathf.Sign(forc.z);
+					forc.z = 5F * Mathf.Sign(forc.z);
 				}
 			}
 			this.transform.constantForce.force = forc ;

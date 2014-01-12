@@ -55,8 +55,12 @@ public class SphereTrigger : MonoBehaviour {
 
 	void OnTriggerStay(Collider col)
 	{
+		float time = Time.realtimeSinceStartup;
 		if(col.tag == "Cub" || col.tag == "Current")
 		{
+			float x = 0;
+
+			x = Time.realtimeSinceStartup - time;
 			if(norm != new Vector3(0,0,0))
 			{
 				this.transform.parent.transform.constantForce.force = Vector3.Reflect(this.transform.parent.transform.constantForce.force,norm);
@@ -66,8 +70,7 @@ public class SphereTrigger : MonoBehaviour {
 			Vector3 force = this.transform.parent.transform.constantForce.force;
 			buf = new Vector3(this.transform.parent.position.x - col.transform.position.x ,0
 			                   ,this.transform.parent.position.z - col.transform.position.z);
-			buf *= 0.1f;
-			buf.x = 1f / buf.x;
+			buf.x = 12f / buf.x;
 			buf.z = 1f / buf.z;
 			if (Mathf.Abs(buf.x) > 20F) {
 				buf.x = 20f * Mathf.Sign(buf.x);
@@ -75,6 +78,8 @@ public class SphereTrigger : MonoBehaviour {
 			if (Mathf.Abs(buf.z)  > 20F) {
 				buf.z = 20f * Mathf.Sign(buf.z); 
 			}
+			force.x += x;
+			force.z += x;
 			this.transform.parent.transform.constantForce.force = force;
 			this.transform.parent.transform.constantForce.force += buf * 3f + new Vector3(Random.value*10F - 5F,0,Random.value*10F - 5F);
 			/*Ray ray = new Ray();
@@ -142,7 +147,7 @@ public class SphereTrigger : MonoBehaviour {
 		}
 	}
 	void Update () {
-		Debug.DrawRay(this.transform.position, this.transform.parent.transform.constantForce.force, Color.yellow);
+		Debug.DrawRay(this.transform.position, this.transform.parent.transform.constantForce.force, Color.black);
 
 	}
 
