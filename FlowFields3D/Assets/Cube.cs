@@ -38,9 +38,14 @@ public class Cube : MonoBehaviour {
 		if(ind != 0)
 		{
 			this.transform.constantForce.force = force.calcInfluence(ind,this.transform.position);
-			this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
-			                                           Quaternion.LookRotation((Vector3)(ter.cords[ind]) 
-			                       						 - this.transform.position), 5 * Time.deltaTime);
+
+			if(Vector3.Distance((Vector3)(ter.cords[ind]),this.transform.position) > 5f)
+			{		
+				this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
+				                      Quaternion.LookRotation((Vector3)(ter.cords[ind]) 
+				                        - this.transform.position), 3 * Time.deltaTime);
+			}
+	
 
 		}
 		else
