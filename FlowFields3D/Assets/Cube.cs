@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Cube : MonoBehaviour {
-	public bool move = false;
+	public bool move = true;
 	public int ind = 0;
 	public Cell force;
 	public Script ter;
