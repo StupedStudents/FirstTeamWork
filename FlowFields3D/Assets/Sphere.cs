@@ -16,7 +16,7 @@ public class Sphere : MonoBehaviour {
 			Cube tmp = col.GetComponent<Cube> ();
 			if ((float)Time.realtimeSinceStartup - tmp.inTime > this.GetComponent<SphereCollider>().radius) {
 				prt = script.points[tmp.ind] as GameObject;
-				col.GetComponent<Cube>().move = false;
+				//col.GetComponent<Cube>().move = false;
 				(script.cubes[tmp.ind] as ArrayList).Remove(col.gameObject);
 				if((script.cubes[tmp.ind] as ArrayList).Count < 1){
 				

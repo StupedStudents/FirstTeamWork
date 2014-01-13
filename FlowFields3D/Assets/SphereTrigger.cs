@@ -35,7 +35,7 @@ public class SphereTrigger : MonoBehaviour {
 					norm = hit.normal;
 				}
 			}
-
+			 
 			Cube tmp = this.transform.parent.transform.GetComponent<Cube>();
 			Vector3 force = Super_cell.calcInfluence(tmp.ind,this.transform.position);
 
@@ -70,18 +70,19 @@ public class SphereTrigger : MonoBehaviour {
 			Vector3 force = this.transform.parent.transform.constantForce.force;
 			buf = new Vector3(this.transform.parent.position.x - col.transform.position.x ,0
 			                   ,this.transform.parent.position.z - col.transform.position.z);
-			buf.x = 12f / buf.x;
+			buf *= 0.01f;
+			buf.x = 1f / buf.x;
 			buf.z = 1f / buf.z;
-			if (Mathf.Abs(buf.x) > 20F) {
-				buf.x = 20f * Mathf.Sign(buf.x);
+			if (Mathf.Abs(buf.x) > 10F) {
+				buf.x = 10f * Mathf.Sign(buf.x);
 			}
-			if (Mathf.Abs(buf.z)  > 20F) {
-				buf.z = 20f * Mathf.Sign(buf.z); 
+			if (Mathf.Abs(buf.z)  > 10F) {
+				buf.z = 10f * Mathf.Sign(buf.z); 
 			}
 			force.x += x;
 			force.z += x;
 			this.transform.parent.transform.constantForce.force = force;
-			this.transform.parent.transform.constantForce.force += buf * 3f + new Vector3(Random.value*10F - 5F,0,Random.value*10F - 5F);
+			this.transform.parent.transform.constantForce.force += buf * 2f + new Vector3(Random.value*10F - 5F,0,Random.value*10F - 5F);
 			/*Ray ray = new Ray();
 			ray.direction = this.transform.parent.transform.constantForce.force.normalized;
 			norms = ray.direction;

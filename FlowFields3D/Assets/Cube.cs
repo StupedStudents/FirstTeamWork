@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class Cube : MonoBehaviour {
-	public bool move = true;
+	public bool move = false;
 	public int ind = 0;
 	public Cell force;
 	public Script ter;
-	public float inTime = 0, times = 0;
+	public float inTime = 0, times = 0, wait = 0;
 	public Vector3 cur = new Vector3(0,0,0);
 	// Use this for initialization
 	void Start () {
@@ -28,46 +28,53 @@ public class Cube : MonoBehaviour {
 		}
 	}
 
+
+
 	void FixedUpdate()
 	{
-
-		if((float)Time.realtimeSinceStartup - times > 10 && this.tag == "Current")
+		if((float)Time.realtimeSinceStartup - wait > 0.04f)
 		{
-			times = Time.realtimeSinceStartup;
-			cur = this.transform.position;
-		}
-		if(ind != 0)
-		{
-			this.transform.constantForce.force = force.calcInfluence(ind,this.transform.position);
-
-			if(Vector3.Distance((Vector3)(ter.cords[ind]),this.transform.position) > 5f)
-			{		
-				this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
-				                      Quaternion.LookRotation((Vector3)(ter.cords[ind]) 
-				                        - this.transform.position), 3 * Time.deltaTime);
-			}
-	
-
-		}
-		else
-		{
-			float dist = Mathf.Sqrt (Mathf.Pow ((cur.x - this.transform.position.x), 2)
-			                           + Mathf.Pow ((cur.z - this.transform.position.z), 2));
-			Vector3 forc = new Vector3(0,0,0);
-			if(dist > 1f)
+			wait = Time.realtimeSinceStartup;
+			if((float)Time.realtimeSinceStartup - times > 10 && this.tag == "Current")
 			{
-				forc = new Vector3(cur.x - this.transform.position.x ,0
-				                   ,cur.z - this.transform.position.z);
-				if (Mathf.Abs(forc.x) > 5F) {
-					forc.x = 5F * Mathf.Sign(forc.x);
-				}
-				if (Mathf.Abs(forc.z) > 5F) {
-					forc.z = 5F * Mathf.Sign(forc.z);
-				}
+				times = Time.realtimeSinceStartup;
+				cur = this.transform.position;
 			}
-			this.transform.constantForce.force = forc ;
+			if(ind != 0)
+			{
+				this.transform.constantForce.force = force.calcInfluence(ind,this.transform.position);
+				
+				if(Vector3.Distance((Vector3)(ter.cords[ind]),this.transform.position) > 5f)
+				{		
+					this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
+					                                           Quaternion.LookRotation((Vector3)(ter.cords[ind]) 
+					                        - this.transform.position), 5 * Time.deltaTime);
+				}
+				
+				
+			}
+			else
+			{
+				float dist = Mathf.Sqrt (Mathf.Pow ((cur.x - this.transform.position.x), 2)
+				                         + Mathf.Pow ((cur.z - this.transform.position.z), 2));
+				Vector3 forc = new Vector3(0,0,0);
+				if(dist > 1f)
+				{
+					forc = new Vector3(cur.x - this.transform.position.x ,0
+					                   ,cur.z - this.transform.position.z);
+					if (Mathf.Abs(forc.x) > 5F) {
+						forc.x = 5F * Mathf.Sign(forc.x);
+					}
+					if (Mathf.Abs(forc.z) > 5F) {
+						forc.z = 5F * Mathf.Sign(forc.z);
+					}
+				}
+				this.transform.constantForce.force = forc ;
+			}
 		}
+
 
 
 	}
+
 }
