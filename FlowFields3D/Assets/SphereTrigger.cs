@@ -8,7 +8,7 @@ public class SphereTrigger : MonoBehaviour {
 	public Vector3 norms = new Vector3(0,0,0);
 	public Cell Super_cell;
 	void Start () {
-		Super_cell = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Cell>();
+		Super_cell = GameObject.Find("Terrain").GetComponent<Cell>();
 	}
 
 	void OnTriggerEnter(Collider col)
@@ -68,8 +68,12 @@ public class SphereTrigger : MonoBehaviour {
 			}
 
 			Vector3 force = this.transform.parent.transform.constantForce.force;
-			buf = new Vector3(this.transform.parent.position.x - col.transform.position.x ,0
-			                   ,this.transform.parent.position.z - col.transform.position.z);
+			//buf = new Vector3(this.transform.parent.position.x - col.transform.position.x ,0
+			  //                 ,this.transform.parent.position.z - col.transform.position.z);
+			buf = new Vector3(this.transform.parent.position.x
+			                  - col.GetComponent<BoxCollider>().ClosestPointOnBounds(this.transform.parent.transform.position).x ,0
+			                  ,this.transform.parent.position.z
+			                  - col.GetComponent<BoxCollider>().ClosestPointOnBounds(this.transform.parent.transform.position).z);
 			buf *= 0.01f;
 			buf.x = 1f / buf.x;
 			buf.z = 1f / buf.z;
@@ -82,7 +86,7 @@ public class SphereTrigger : MonoBehaviour {
 			force.x += x;
 			force.z += x;
 			this.transform.parent.transform.constantForce.force = force;
-			this.transform.parent.transform.constantForce.force += buf * 2f + new Vector3(Random.value*10F - 5F,0,Random.value*10F - 5F);
+			this.transform.parent.transform.constantForce.force += buf * 1.7f + new Vector3(Random.value*10F - 5F,0,Random.value*10F - 5F);
 			/*Ray ray = new Ray();
 			ray.direction = this.transform.parent.transform.constantForce.force.normalized;
 			norms = ray.direction;

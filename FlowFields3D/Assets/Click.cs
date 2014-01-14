@@ -17,8 +17,8 @@ public class Click : MonoBehaviour {
 		for (int i = 1; i <= 10; i++) {
 			tags.Add(i);
 		}
-		script = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Script>();
-		ter = GameObject.FindGameObjectWithTag ("Terrain");
+		script = GameObject.Find("Terrain").GetComponent<Script>();
+		ter = GameObject.Find ("Terrain");
 		field = ter.GetComponent<Table> ();
 		buf = GameObject.FindGameObjectWithTag("Cub");
 		prt = new GameObject();
@@ -105,7 +105,7 @@ public class Click : MonoBehaviour {
 				if(script.cords.Contains(spr.transform.position))
 				{
 					spr.GetComponent<SphereCollider>().radius =
-						((script.cubes[script.cords.IndexOf (spr.transform.position)] as ArrayList).Count + 5);
+						((script.cubes[script.cords.IndexOf (spr.transform.position)] as ArrayList).Count * 2 + 5);
 				}
 			}
 		}

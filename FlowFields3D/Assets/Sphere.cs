@@ -7,7 +7,7 @@ public class Sphere : MonoBehaviour {
 	public Script script;
 	void Start () {
 		tagd = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Click>();
-		script = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Script>();
+		script = GameObject.Find("Terrain").GetComponent<Script>();
 
 	}
 	void OnTriggerStay(Collider col){

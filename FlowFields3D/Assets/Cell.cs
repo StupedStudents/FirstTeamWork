@@ -20,10 +20,10 @@ public class Cell : MonoBehaviour {
 		if (Mathf.Abs(force.z) > 20F) {
 			force.z = 20F * Mathf.Sign(force.z);
 		}
-		return force;
+		return force * 1.5f;
 	}
 	void Start () {
-		script = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Script>();
+		script = GameObject.Find("Terrain").GetComponent<Script>();
 	}
 	public Vector3 calcInfluence(int ind, Vector3 pos){
 		 

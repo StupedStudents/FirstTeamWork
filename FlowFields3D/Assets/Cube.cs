@@ -10,8 +10,8 @@ public class Cube : MonoBehaviour {
 	public Vector3 cur = new Vector3(0,0,0);
 	// Use this for initialization
 	void Start () {
-		force = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Cell>();
-		ter = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Script>();
+		force = GameObject.Find("Terrain").GetComponent<Cell>();
+		ter = GameObject.Find("Terrain").GetComponent<Script>();
 		cur = this.transform.position;
 		cur.y = 1;
 	}
@@ -34,6 +34,13 @@ public class Cube : MonoBehaviour {
 	{
 		if((float)Time.realtimeSinceStartup - wait > 0.04f)
 		{
+			if(this.constantForce.force != new Vector3(0,0,0))
+			{
+				this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
+				                                           Quaternion.LookRotation(this.constantForce.force), 
+				                                           2 * Time.deltaTime);
+			}
+
 			wait = Time.realtimeSinceStartup;
 			if((float)Time.realtimeSinceStartup - times > 10 && this.tag == "Current")
 			{
@@ -44,7 +51,7 @@ public class Cube : MonoBehaviour {
 			{
 				this.transform.constantForce.force = force.calcInfluence(ind,this.transform.position);
 				
-				if(Vector3.Distance((Vector3)(ter.cords[ind]),this.transform.position) > 5f)
+				if(Vector3.Distance((Vector3)(ter.cords[ind]),this.transform.position) > 10f)
 				{		
 					this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
 					                                           Quaternion.LookRotation((Vector3)(ter.cords[ind]) 
