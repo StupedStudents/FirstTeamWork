@@ -159,6 +159,9 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset2.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+ <Reference Include="NGUI 1">
+ <HintPath>Assets\NGUI\DLLs\NGUI 1.dll</HintPath>
+ </Reference>
  <Reference Include="NGUI">
  <HintPath>Assets\NGUI\DLLs\NGUI.dll</HintPath>
  </Reference>
@@ -182,9 +185,6 @@
  </Reference>
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="NGUI 1">
- <HintPath>Assets\NGUI\DLLs\NGUI 1.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

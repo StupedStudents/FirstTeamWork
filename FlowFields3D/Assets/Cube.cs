@@ -34,11 +34,12 @@ public class Cube : MonoBehaviour {
 	{
 		if((float)Time.realtimeSinceStartup - wait > 0.04f)
 		{
-			if(this.constantForce.force != new Vector3(0,0,0))
+
+			if(this.constantForce.force != new Vector3(0,0,0) && this.move)
 			{
 				this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
 				                                           Quaternion.LookRotation(this.constantForce.force), 
-				                                           2 * Time.deltaTime);
+				                                           Script.phi * Time.deltaTime);
 			}
 
 			wait = Time.realtimeSinceStartup;

@@ -1,16 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SphereTrigger.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NGUI\Contr.cs">
     <Files>
       <File FileName="Assets\AreaSelect.cs" Line="1" Column="1" />
-      <File FileName="Assets\Sphere.cs" Line="1" Column="1" />
-      <File FileName="Assets\SphereTrigger.cs" Line="81" Column="37" />
+      <File FileName="Assets\Sphere.cs" Line="73" Column="5" />
+      <File FileName="Assets\SphereTrigger.cs" Line="80" Column="5" />
       <File FileName="Assets\Click.cs" Line="1" Column="1" />
-      <File FileName="Assets\Cube.cs" Line="1" Column="1" />
+      <File FileName="Assets\Cube.cs" Line="51" Column="16" />
       <File FileName="Assets\Cell.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script.cs" Line="15" Column="1" />
+      <File FileName="Assets\Script.cs" Line="14" Column="36" />
       <File FileName="Assets\MoveCamera.cs" Line="1" Column="1" />
-      <File FileName="Assets\NGUI\Contr.cs" Line="5" Column="1" />
+      <File FileName="Assets\NGUI\Contr.cs" Line="26" Column="71" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
