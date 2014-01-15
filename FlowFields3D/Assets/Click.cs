@@ -30,7 +30,7 @@ public class Click : MonoBehaviour {
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			int mask = 1 << 0;
-		if (Physics.Raycast(ray, out hit, 100, mask))
+		if (Physics.Raycast(ray, out hit, 1000, mask))
 			{
 				if((lst = GameObject.FindGameObjectsWithTag ("Current")).Length > 0)
 				{

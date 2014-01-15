@@ -15,10 +15,6 @@ Platform assembly: C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\M
 Loading C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Menu_tst_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Menu_tst_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
 Loading C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Menu_tst_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-Platform assembly: C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Menu_tst_Data\Managed\NGUI.dll (this message is harmless)
-Loading C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Menu_tst_Data\Managed\NGUI.dll into Unity Child Domain
-Platform assembly: C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Menu_tst_Data\Managed\NGUI 1.dll (this message is harmless)
-Loading C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Menu_tst_Data\Managed\NGUI 1.dll into Unity Child Domain
 - Completed reload, in  0.057 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
@@ -32,28 +28,19 @@ The tiled sprite ("UI Root (3D)/Camera/Anchor/Second/TiledSprite (Flat Outline)"
 Consider using a bigger one.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:LogWarning(Object)
-UITiledSprite:OnFill(BetterList`1, BetterList`1, BetterList`1) (at C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Assets\NGUI\Scripts\UI\UITiledSprite.cs:67)
-UIWidget:UpdateGeometry(Matrix4x4&, Boolean, Boolean)
-UIBasePanel:UpdateWidgets()
-UIBasePanel:LateUpdate()
+UITiledSprite:OnFill(BetterList`1, BetterList`1, BetterList`1) (at C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Assets\NGUI\Scripts\UI\UITiledSprite.cs:71)
+UIWidget:UpdateGeometry(Matrix4x4&, Boolean, Boolean) (at C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Assets\NGUI\Scripts\Internal\UIWidget.cs:424)
+UIPanel:UpdateWidgets() (at C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Assets\NGUI\Scripts\UI\UIPanel.cs:834)
+UIPanel:LateUpdate() (at C:\Users\Fatall\Documents\GitHub\FirstTeamWork\FlowFields3D\Assets\NGUI\Scripts\UI\UIPanel.cs:969)
  
 (Filename: C Line: 0)
 
-You are trying to load data from a www stream which had the following error when downloading.
-Recv failure: Connection was reset
-UnityEngine.WWW:GetTexture(Boolean)
-UnityEngine.WWW:get_texture()
-NGUILogo:Update()
-
-[C:/BuildAgent/work/d3d49558e4d408f4/Runtime/Export/WWW.cpp line 1066] 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/Runtime/Export/WWW.cpp Line: 1066)
-
-UnloadTime: 3.849537 ms
-System memory in use before: 57.4 MB.
+UnloadTime: 3.427783 ms
+System memory in use before: 57.3 MB.
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-System memory in use after: 55.1 MB.
+System memory in use after: 54.9 MB.
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 2659.
-Total: 1.358602 ms (FindLiveObjects: 0.117778 ms CreateObjectMapping: 0.026390 ms MarkObjects: 0.318636 ms  DeleteObjects: 0.327921 ms)
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 2562.
+Total: 1.447058 ms (FindLiveObjects: 0.106049 ms CreateObjectMapping: 0.023457 ms MarkObjects: 0.276607 ms  DeleteObjects: 0.461827 ms)
 
 Waiting for finish

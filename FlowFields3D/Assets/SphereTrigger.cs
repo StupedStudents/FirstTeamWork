@@ -22,8 +22,7 @@ public class SphereTrigger : MonoBehaviour {
 			tmp1.y += 0.5f;
 			ray.origin = tmp1;
 			norm = new Vector3(0,0,0);
-			
-			
+
 			RaycastHit hit = new RaycastHit();
 			if(ray.direction != new Vector3(0,0,0))
 			{
@@ -47,10 +46,7 @@ public class SphereTrigger : MonoBehaviour {
 				this.transform.parent.transform.constantForce.force = Vector3.Reflect(this.transform.parent.transform.constantForce.force,norm);
 				Debug.DrawRay(this.transform.position, this.transform.parent.transform.constantForce.force, Color.yellow);
 			}
-
 		}
-
-
 	}
 
 	void OnTriggerStay(Collider col)

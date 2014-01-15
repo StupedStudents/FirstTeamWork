@@ -1,4 +1,4 @@
-﻿//----------------------------------------------
+//----------------------------------------------
 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2012 Tasharen Entertainment
 //----------------------------------------------
@@ -37,7 +37,6 @@ public class UIButtonColor : MonoBehaviour
 	public float duration = 0.2f;
 
 	protected Color mColor;
-	protected bool mInitDone = false;
 	protected bool mStarted = false;
 	protected bool mHighlighted = false;
 
@@ -47,7 +46,14 @@ public class UIButtonColor : MonoBehaviour
 
 	public Color defaultColor { get { return mColor; } set { mColor = value; } }
 
-	void Start () { mStarted = true; if (!mInitDone) Init(); }
+	void Start ()
+	{
+		if (!mStarted)
+		{
+			Init();
+			mStarted = true;
+		}
+	}
 
 	protected virtual void OnEnable () { if (mStarted && mHighlighted) OnHover(UICamera.IsHighlighted(gameObject)); }
 
@@ -67,7 +73,6 @@ public class UIButtonColor : MonoBehaviour
 
 	protected void Init ()
 	{
-		mInitDone = true;
 		if (tweenTarget == null) tweenTarget = gameObject;
 		UIWidget widget = tweenTarget.GetComponent<UIWidget>();
 
@@ -98,19 +103,23 @@ public class UIButtonColor : MonoBehaviour
 				}
 			}
 		}
+		OnEnable();
 	}
 
-	void OnPress (bool isPressed)
-	{
-		if (!mInitDone) Init();
-		if (enabled) TweenColor.Begin(tweenTarget, duration, isPressed ? pressed : (UICamera.IsHighlighted(gameObject) ? hover : mColor));
-	}
-
-	void OnHover (bool isOver)
+	protected virtual void OnPress (bool isPressed)
 	{
 		if (enabled)
 		{
-			if (!mInitDone) Init();
+			if (!mStarted) Start();
+			TweenColor.Begin(tweenTarget, duration, isPressed ? pressed : (UICamera.IsHighlighted(gameObject) ? hover : mColor));
+		}
+	}
+
+	protected virtual void OnHover (bool isOver)
+	{
+		if (enabled)
+		{
+			if (!mStarted) Start();
 			TweenColor.Begin(tweenTarget, duration, isOver ? hover : mColor);
 			mHighlighted = isOver;
 		}

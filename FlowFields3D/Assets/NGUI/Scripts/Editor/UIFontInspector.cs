@@ -1,4 +1,4 @@
-﻿//----------------------------------------------
+//----------------------------------------------
 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2012 Tasharen Entertainment
 //----------------------------------------------
@@ -27,12 +27,14 @@ public class UIFontInspector : Editor
 		Reference,
 	}
 
-	static View mView = View.Atlas;
+	static View mView = View.Font;
 	static bool mUseShader = false;
 	
 	UIFont mFont;
 	FontType mType = FontType.Normal;
 	UIFont mReplacement = null;
+
+	public override bool HasPreviewGUI () { return mView != View.Nothing; }
 
 	void OnSelectFont (MonoBehaviour obj)
 	{
@@ -41,7 +43,7 @@ public class UIFontInspector : Editor
 		//NGUIEditorTools.RegisterUndo("Font Change", mFont);
 
 		mFont.replacement = obj as UIFont;
-		mReplacement = mFont.replacement as UIFont;
+		mReplacement = mFont.replacement;
 		UnityEditor.EditorUtility.SetDirty(mFont);
 		if (mReplacement == null) mType = FontType.Normal;
 	}
@@ -80,7 +82,7 @@ public class UIFontInspector : Editor
 		if (mFont.replacement != null)
 		{
 			mType = FontType.Reference;
-			mReplacement = mFont.replacement as UIFont;
+			mReplacement = mFont.replacement;
 		}
 
 		FontType after = (FontType)EditorGUILayout.EnumPopup("Font Type", mType);
@@ -99,7 +101,7 @@ public class UIFontInspector : Editor
 
 		if (mType == FontType.Reference)
 		{
-			ComponentSelector.Draw<UIFont>(mFont.replacement as UIFont, OnSelectFont);
+			ComponentSelector.Draw<UIFont>(mFont.replacement, OnSelectFont);
 
 			NGUIEditorTools.DrawSeparator();
 			GUILayout.Label("You can have one font simply point to\n" +
@@ -121,7 +123,7 @@ public class UIFontInspector : Editor
 		}
 
 		NGUIEditorTools.DrawSeparator();
-		ComponentSelector.Draw<UIAtlas>(mFont.atlas as UIAtlas, OnSelectAtlas);
+		ComponentSelector.Draw<UIAtlas>(mFont.atlas, OnSelectAtlas);
 
 		if (mFont.atlas != null)
 		{
@@ -133,13 +135,7 @@ public class UIFontInspector : Editor
 
 			if (mFont.bmFont.isValid)
 			{
-				string spriteName = UISlicedSpriteInspector.SpriteField(mFont.atlas as UIAtlas, mFont.spriteName);
-
-				if (mFont.spriteName != spriteName)
-				{
-					NGUIEditorTools.RegisterUndo("Font Sprite", mFont);
-					mFont.spriteName = spriteName;
-				}
+				NGUIEditorTools.AdvancedSpriteField(mFont.atlas, mFont.spriteName, SelectSprite, false);
 			}
 		}
 		else
@@ -245,39 +241,78 @@ public class UIFontInspector : Editor
 				}
 				GUILayout.EndHorizontal();
 
-				EditorGUILayout.Separator();
-
-				GUILayout.BeginHorizontal();
+				if (mFont.atlas == null)
 				{
-					mView = (View)EditorGUILayout.EnumPopup("Show", mView);
-					GUILayout.Label("Shader", GUILayout.Width(45f));
+					mView = View.Font;
+					mUseShader = false;
 
-					if (mUseShader != EditorGUILayout.Toggle(mUseShader, GUILayout.Width(20f)))
+					float pixelSize = EditorGUILayout.FloatField("Pixel Size", mFont.pixelSize, GUILayout.Width(120f));
+
+					if (pixelSize != mFont.pixelSize)
 					{
-						mUseShader = !mUseShader;
-
-						if (mUseShader && mView == View.Font)
-						{
-							// TODO: Remove this when Unity fixes the bug with DrawPreviewTexture not being affected by BeginGroup
-							Debug.LogWarning("There is a bug in Unity that prevents the texture from getting clipped properly.\n" +
-								"Until it's fixed by Unity, your texture may spill onto the rest of the Unity's GUI while using this mode.");
-						}
+						NGUIEditorTools.RegisterUndo("Font Change", mFont);
+						mFont.pixelSize = pixelSize;
 					}
 				}
-				GUILayout.EndHorizontal();
-
-				if (mView != View.Nothing)
+				else
 				{
-					// Draw the atlas
-					EditorGUILayout.Separator();
-					Material m = mUseShader ? mFont.material : null;
-					Rect rect = (mView == View.Atlas) ? NGUIEditorTools.DrawAtlas(tex, m) : NGUIEditorTools.DrawSprite(tex, mFont.uvRect, m);
-					NGUIEditorTools.DrawOutline(rect, mFont.uvRect, green);
-
-					rect = GUILayoutUtility.GetRect(Screen.width, 18f);
-					EditorGUI.DropShadowLabel(rect, "Font Size: " + mFont.size);
+					GUILayout.BeginHorizontal();
+					{
+						mView = (View)EditorGUILayout.EnumPopup("Preview", mView);
+						GUILayout.Label("Shader", GUILayout.Width(45f));
+						mUseShader = EditorGUILayout.Toggle(mUseShader, GUILayout.Width(20f));
+					}
+					GUILayout.EndHorizontal();
 				}
 			}
 		}
+	}
+
+	/// <summary>
+	/// Draw the font preview window.
+	/// </summary>
+
+	public override void OnPreviewGUI (Rect rect, GUIStyle background)
+	{
+		mFont = target as UIFont;
+		if (mFont == null) return;
+		Texture2D tex = mFont.texture;
+
+		if (mView != View.Nothing && tex != null)
+		{
+			Material m = (mUseShader ? mFont.material : null);
+
+			if (mView == View.Font)
+			{
+				Rect outer = new Rect(mFont.uvRect);
+				Rect uv = outer;
+
+				outer = NGUIMath.ConvertToPixels(outer, tex.width, tex.height, true);
+
+				NGUIEditorTools.DrawSprite(tex, rect, outer, outer, uv, Color.white, m);
+			}
+			else
+			{
+				Rect outer = new Rect(0f, 0f, 1f, 1f);
+				Rect inner = new Rect(mFont.uvRect);
+				Rect uv = outer;
+
+				outer = NGUIMath.ConvertToPixels(outer, tex.width, tex.height, true);
+				inner = NGUIMath.ConvertToPixels(inner, tex.width, tex.height, true);
+
+				NGUIEditorTools.DrawSprite(tex, rect, outer, inner, uv, Color.white, m);
+			}
+		}
+	}
+
+	/// <summary>
+	/// Sprite selection callback.
+	/// </summary>
+
+	void SelectSprite (string spriteName)
+	{
+		NGUIEditorTools.RegisterUndo("Font Sprite", mFont);
+		mFont.spriteName = spriteName;
+		Repaint();
 	}
 }

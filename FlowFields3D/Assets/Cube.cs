@@ -8,7 +8,7 @@ public class Cube : MonoBehaviour {
 	public Script ter;
 	public float inTime = 0, times = 0, wait = 0;
 	public Vector3 cur = new Vector3(0,0,0);
-	// Use this for initialization
+
 	void Start () {
 		force = GameObject.Find("Terrain").GetComponent<Cell>();
 		ter = GameObject.Find("Terrain").GetComponent<Script>();
@@ -16,7 +16,6 @@ public class Cube : MonoBehaviour {
 		cur.y = 1;
 	}
 
-	// Update is called once per frame
 	void Update () {
 		if(this.name != "Eqv")
 		{
@@ -27,9 +26,6 @@ public class Cube : MonoBehaviour {
 			else this.transform.Find ("Anim").renderer.enabled = false;
 		}
 	}
-
-
-
 	void FixedUpdate()
 	{
 		if((float)Time.realtimeSinceStartup - wait > 0.04f)
@@ -58,8 +54,6 @@ public class Cube : MonoBehaviour {
 					                                           Quaternion.LookRotation((Vector3)(ter.cords[ind]) 
 					                        - this.transform.position), 5 * Time.deltaTime);
 				}
-				
-				
 			}
 			else
 			{
@@ -80,9 +74,5 @@ public class Cube : MonoBehaviour {
 				this.transform.constantForce.force = forc ;
 			}
 		}
-
-
-
 	}
-
 }
