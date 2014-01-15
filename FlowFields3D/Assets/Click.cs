@@ -12,11 +12,16 @@ public class Click : MonoBehaviour {
 	public GameObject spr;
 	public Script script;
 
-	void Start () {
+	void Awake()
+	{
 		tags = new ArrayList();
 		for (int i = 1; i <= 10; i++) {
 			tags.Add(i);
 		}
+	}
+
+	void Start () {
+
 		script = GameObject.Find("Terrain").GetComponent<Script>();
 		ter = GameObject.Find ("Terrain");
 		field = ter.GetComponent<Table> ();
@@ -114,12 +119,7 @@ public class Click : MonoBehaviour {
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			lst = GameObject.FindGameObjectsWithTag ("Current");
-			if(lst.Length > 0){
-				foreach(GameObject tmt in lst)
-				{
-					tmt.tag = "Cub";
-				}
-			}
+
 			int mask = 1 << 9;
 			if (Physics.Raycast(ray, out hit, 100, mask))
 			{
@@ -127,6 +127,12 @@ public class Click : MonoBehaviour {
 				if(!tmp.collider.isTrigger){
 					buf = tmp.gameObject;
 					buf.tag = "Current";
+				}
+				if(lst.Length > 0){
+					foreach(GameObject tmt in lst)
+					{
+						tmt.tag = "Cub";
+					}
 				}
 			}
 		}

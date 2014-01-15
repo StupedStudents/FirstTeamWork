@@ -13,8 +13,11 @@ public class Script : MonoBehaviour {
 	public static float alpha = 1.7f;
 	public static float epsilon = 0.01f;
 	public static float phi = 2f;
+	public Click cl;
+
 
 	void Start () {
+		cl = GameObject.Find("Main Camera").GetComponent<Click>();
 		cub = GameObject.FindGameObjectsWithTag ("Cub");
 		cords.Add (finish);
 		cubes.Add (new ArrayList());
@@ -24,6 +27,13 @@ public class Script : MonoBehaviour {
 		points.Add(GameObject.FindGameObjectWithTag("Particle"));
 	}
 	void Update () {
-
+		int min = (int)cl.tags[0];
+			if(cords.Count > min) cords.RemoveAt(min);
+			if(cubes.Count > min) cubes.RemoveAt(min);
+			if(points.Count > min)
+			{
+				Destroy(points[min] as GameObject);
+				points.RemoveAt(min);
+			}
 	}
 }

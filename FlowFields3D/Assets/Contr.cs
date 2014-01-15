@@ -30,6 +30,7 @@ public class Contr : MonoBehaviour {
 		Application.LoadLevel("Tmp");
 	}
 
+
 	void exit()
 	{
 		Application.Quit();

@@ -51,6 +51,7 @@
      <Compile Include="Assets\Click.cs" />
      <Compile Include="Assets\Contr.cs" />
      <Compile Include="Assets\Cube.cs" />
+     <Compile Include="Assets\Game_menu.cs" />
      <Compile Include="Assets\MoveCamera.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipItems.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipRandomItem.cs" />

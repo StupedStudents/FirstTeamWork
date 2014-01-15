@@ -3,7 +3,8 @@ using System.Collections;
 
 public class AreaSelect : MonoBehaviour
 {
-		public GameObject[] units;
+		public ArrayList units = new ArrayList();
+		public GameObject[] cub;
 		public Vector2 mouseButton1DownPoint;
 		public Vector2 mouseButton1UpPoint;
 		public Vector3 mouseButton1DownTerrainHitPoint;
@@ -23,7 +24,14 @@ public class AreaSelect : MonoBehaviour
 
 		void Start ()
 		{
-				units = GameObject.FindGameObjectsWithTag ("Cub");
+				cub = GameObject.FindGameObjectsWithTag ("Cub");
+				if(cub.Length > 1)
+				{
+					foreach (GameObject t in cub) {
+						units.Add (t);
+					}
+				}
+				
 				selectionTexture = GameObject.FindGameObjectWithTag ("Player").renderer.material.mainTexture;
 				terrainLayerMask = 1 << 0;
 				nonTerrainLayerMask = ~(1 << 0);
