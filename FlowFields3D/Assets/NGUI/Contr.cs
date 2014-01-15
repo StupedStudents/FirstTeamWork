@@ -9,9 +9,9 @@ public class Contr : MonoBehaviour {
 
 	void Start()
 	{
-		GameObject.Find("alpha").GetComponent<UISlider>().sliderValue = 0.15f;
-		GameObject.Find("epsilon").GetComponent<UISlider>().sliderValue = 0.3f;
-		GameObject.Find("phi").GetComponent<UISlider>().sliderValue = 0.2f;
+		GameObject.Find("alp").GetComponent<UILabel>().text = alpha.ToString();
+		GameObject.Find("eps").GetComponent<UILabel>().text = epsilon.ToString();
+		GameObject.Find("ph").GetComponent<UILabel>().text = phi.ToString();
 
 	}
 
@@ -20,6 +20,9 @@ public class Contr : MonoBehaviour {
 		alpha = GameObject.Find("alpha").GetComponent<UISlider>().sliderValue * 10;
 		epsilon = GameObject.Find("epsilon").GetComponent<UISlider>().sliderValue * 100;
 		phi = GameObject.Find("phi").GetComponent<UISlider>().sliderValue * 10;
+		GameObject.Find("alp").GetComponent<UILabel>().text = alpha.ToString();
+		GameObject.Find("eps").GetComponent<UILabel>().text = epsilon.ToString();
+		GameObject.Find("ph").GetComponent<UILabel>().text = phi.ToString();
 	}
 	void newGame()
 	{
@@ -33,16 +36,22 @@ public class Contr : MonoBehaviour {
 
 	void options()
 	{
-
+		GameObject.Find("alpha").GetComponent<UISlider>().sliderValue = Script.alpha / 10f;
+		GameObject.Find("epsilon").GetComponent<UISlider>().sliderValue = Script.epsilon / 100f;
+		GameObject.Find("phi").GetComponent<UISlider>().sliderValue = Script.phi / 10f;
 	}
 
 	void apply()
 	{
-		
+		Script.alpha = alpha;
+		Script.epsilon = epsilon;
+		Script.phi = phi;
 	}
 
 	void retn()
 	{
-		
+		GameObject.Find("alpha").GetComponent<UISlider>().sliderValue = Script.alpha / 10f;
+		GameObject.Find("epsilon").GetComponent<UISlider>().sliderValue = Script.epsilon / 100f;
+		GameObject.Find("phi").GetComponent<UISlider>().sliderValue = Script.phi / 10f;	
 	}
 }
