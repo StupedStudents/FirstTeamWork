@@ -28,7 +28,7 @@ public class Cube : MonoBehaviour {
 	}
 	void FixedUpdate()
 	{
-		if((float)Time.realtimeSinceStartup - wait > 0.04f)
+		if((float)Time.realtimeSinceStartup - wait > 0.04f) // lololol 0.04
 		{
 
 			if(this.constantForce.force != new Vector3(0,0,0) && this.move)

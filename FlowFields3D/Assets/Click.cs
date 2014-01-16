@@ -42,7 +42,7 @@ public class Click : MonoBehaviour {
 					script.points.Add(Instantiate((script.points[0] as GameObject),(hit.point),new Quaternion()) as GameObject);
 					(script.points[(script.points.Count - 1)] as GameObject).transform.Rotate(new Vector3(270,0,0));
 					lst = GameObject.FindGameObjectsWithTag ("Current");
-					for (int i = 0; i < lst.Length - 1; i++)// ololo Bubble sort, cause fuck you, that's why!
+					for (int i = 0; i < lst.Length - 1; i++)// del this
 					{
 						for (int j = i + 1; j < lst.Length; j++)
 						{
