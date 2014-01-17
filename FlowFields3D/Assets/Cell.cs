@@ -14,13 +14,13 @@ public class Cell : MonoBehaviour {
 		Vector3 force = new Vector3 (Mathf.Abs((((Vector3)(script.cords[ind])).x - pos.x)) * ((((Vector3)(script.cords[ind])).x - pos.x) / dist), 0,
 		                             Mathf.Abs((((Vector3)(script.cords[ind])).z - pos.z)) * ((((Vector3)(script.cords[ind])).z - pos.z) / dist));
 		
-		if (Mathf.Abs(force.x) > 20F) {
-			force.x = 20F * Mathf.Sign(force.x);
+		if (Mathf.Abs(force.x) > 10F) {
+			force.x = 10F * Mathf.Sign(force.x);
 		}
-		if (Mathf.Abs(force.z) > 20F) {
-			force.z = 20F * Mathf.Sign(force.z);
+		if (Mathf.Abs(force.z) > 10F) {
+			force.z = 10F * Mathf.Sign(force.z);
 		}
-		return force * 1.5f;
+		return force * 3f;
 	}
 	void Start () {
 		script = GameObject.Find("Terrain").GetComponent<Script>();

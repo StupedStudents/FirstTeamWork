@@ -34,7 +34,7 @@ public class Cube : MonoBehaviour {
 			if(this.constantForce.force != new Vector3(0,0,0) && this.move)
 			{
 				this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
-				                                           Quaternion.LookRotation(this.constantForce.force), 
+				                                           Quaternion.LookRotation(this.transform.constantForce.force), 
 				                                           Script.phi * Time.deltaTime);
 			}
 

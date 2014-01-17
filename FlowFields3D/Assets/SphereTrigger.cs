@@ -7,6 +7,7 @@ public class SphereTrigger : MonoBehaviour {
 	public Vector3 norm = new Vector3(0,0,0);
 	public Vector3 norms = new Vector3(0,0,0);
 	public Cell Super_cell;
+	public Vector3 randpost = new Vector3 (0,0,0);
 	void Start () {
 		Super_cell = GameObject.Find("Terrain").GetComponent<Cell>();
 	}
@@ -79,12 +80,25 @@ public class SphereTrigger : MonoBehaviour {
 			}
 			force.x += x;
 			force.z += x;
+
+			randpost = force.normalized;
+			randpost.x = -Mathf.Sin(Mathf.PI/3f) * force.normalized.z + Mathf.Cos(Mathf.PI/3f) * force.normalized.x; 
+			randpost.z = Mathf.Cos (Mathf.PI/3f) * force.normalized.z + Mathf.Sin(Mathf.PI/3f) * force.normalized.x;
+			
+			//col.transform.constantForce.force += buf * 1.5f + 25 * Vector3.Reflect (force.normalized, randpost);
+
 			this.transform.parent.transform.constantForce.force = force;
-			this.transform.parent.transform.constantForce.force += buf * Script.alpha + new Vector3(Random.value*10F - 5F,0,Random.value*10F - 5F);
+			this.transform.parent.transform.constantForce.force += buf * Script.alpha;
+
+			if(this.transform.parent.GetComponent<Cube>().move)
+			{
+				col.transform.constantForce.force += 25 * Vector3.Reflect (force.normalized, randpost);
+
+			}
 		}
 	}
 	void Update () {
-		Debug.DrawRay(this.transform.position, this.transform.parent.transform.constantForce.force, Color.black);
+		Debug.DrawRay(this.transform.position + new Vector3(0,0.5f,0), this.transform.parent.transform.constantForce.force, Color.yellow, 1f, false);
 	}
 
 	void FixedUpdate(){
