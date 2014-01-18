@@ -8,8 +8,10 @@ public class Cube : MonoBehaviour {
 	public Script ter;
 	public float inTime = 0, times = 0, wait = 0;
 	public Vector3 cur = new Vector3(0,0,0);
+	public int dir = 2;
 
 	void Start () {
+		dir = 2;
 		force = GameObject.Find("Terrain").GetComponent<Cell>();
 		ter = GameObject.Find("Terrain").GetComponent<Script>();
 		cur = this.transform.position;
@@ -53,6 +55,12 @@ public class Cube : MonoBehaviour {
 					this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
 					                                           Quaternion.LookRotation((Vector3)(ter.cords[ind]) 
 					                        - this.transform.position), 5 * Time.deltaTime);
+					if(this.constantForce.force != new Vector3(0,0,0))
+					{
+						this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
+						                                           Quaternion.LookRotation(this.transform.constantForce.force), 
+						                                           Script.phi * Time.deltaTime);
+					}
 				}
 			}
 			else
