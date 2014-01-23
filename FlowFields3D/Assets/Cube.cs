@@ -9,6 +9,7 @@ public class Cube : MonoBehaviour {
 	public float inTime = 0, times = 0, wait = 0;
 	public Vector3 cur = new Vector3(0,0,0);
 	public int dir = 2;
+	public bool EscaleFlag = true;
 
 	void Start () {
 		dir = 2;

@@ -1,18 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Escalator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Click.cs">
     <Files>
-      <File FileName="Assets\AreaSelect.cs" Line="13" Column="38" />
-      <File FileName="Assets\Sphere.cs" Line="1" Column="1" />
-      <File FileName="Assets\SphereTrigger.cs" Line="17" Column="3" />
-      <File FileName="Assets\Click.cs" Line="45" Column="57" />
-      <File FileName="Assets\Cube.cs" Line="58" Column="55" />
+      <File FileName="Assets\AreaSelect.cs" Line="1" Column="1" />
+      <File FileName="Assets\Sphere.cs" Line="40" Column="7" />
+      <File FileName="Assets\SphereTrigger.cs" Line="1" Column="1" />
+      <File FileName="Assets\Click.cs" Line="52" Column="1" />
+      <File FileName="Assets\Cube.cs" Line="12" Column="8" />
       <File FileName="Assets\Cell.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script.cs" Line="40" Column="1" />
       <File FileName="Assets\Contr.cs" Line="1" Column="1" />
       <File FileName="Assets\Game_menu.cs" Line="1" Column="1" />
-      <File FileName="Assets\StaticField.cs" Line="35" Column="1" />
-      <File FileName="Assets\Escalator.cs" Line="55" Column="91" />
+      <File FileName="Assets\StaticField.cs" Line="1" Column="1" />
+      <File FileName="Assets\Escalator.cs" Line="8" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

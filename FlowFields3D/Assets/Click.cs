@@ -11,6 +11,8 @@ public class Click : MonoBehaviour {
 	public Cell step;
 	public GameObject spr;
 	public Script script;
+	public ArrayList sosi4ka;
+	private ArrayList kuro4ka;
 
 	void Awake()
 	{
@@ -21,7 +23,8 @@ public class Click : MonoBehaviour {
 	}
 
 	void Start () {
-
+		kuro4ka = new ArrayList ();
+		sosi4ka = new ArrayList ();
 		script = GameObject.Find("Terrain").GetComponent<Script>();
 		ter = GameObject.Find ("Terrain");
 		field = ter.GetComponent<Table> ();
@@ -35,12 +38,38 @@ public class Click : MonoBehaviour {
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			int mask = 1 << 0;
-		if (Physics.Raycast(ray, out hit, 1000, mask))
+			if (Physics.Raycast(ray, out hit, 1000, mask))
 			{
 				if((lst = GameObject.FindGameObjectsWithTag ("Current")).Length > 0)
 				{
+					if(kuro4ka.Count > 0)
+					{
+						foreach(Vector3 svininka in sosi4ka)
+						{
+
+							if(!script.cords.Contains(svininka))
+							{
+								(kuro4ka[sosi4ka.IndexOf(svininka)] as Collider).GetComponent<Escalator>().allow = true;
+								kuro4ka.RemoveAt(sosi4ka.IndexOf(svininka));
+								sosi4ka.Remove(svininka);
+
+								break;
+							}
+						}
+					}
 					script.points.Add(Instantiate((script.points[0] as GameObject),(hit.point),new Quaternion()) as GameObject);
 					(script.points[(script.points.Count - 1)] as GameObject).transform.Rotate(new Vector3(270,0,0));
+					Ray up = new Ray();
+					up.origin = Vector3.up;
+					up.direction = hit.point;
+					RaycastHit hitUp;
+					int maskEscals = 1 << 11;
+					if(Physics.Raycast(up,out hitUp, 500, maskEscals))
+					{
+						hitUp.collider.GetComponent<Escalator>().allow = false;
+						sosi4ka.Add(hit.point);
+						kuro4ka.Add(hit.collider);
+					}
 					lst = GameObject.FindGameObjectsWithTag ("Current");
 					for (int i = 0; i < lst.Length - 1; i++)// del this
 					{
@@ -58,6 +87,7 @@ public class Click : MonoBehaviour {
 					script.cubes.Add(new ArrayList());
 					foreach(GameObject lalka in lst)
 					{
+						lalka.GetComponent<Cube>().EscaleFlag = false;
 						lalka.tag = "Cub";
 						lalka.GetComponent<Cube>().move = true;
 
@@ -121,7 +151,7 @@ public class Click : MonoBehaviour {
 			lst = GameObject.FindGameObjectsWithTag ("Current");
 
 			int mask = 1 << 9;
-			if (Physics.Raycast(ray, out hit, 100, mask))
+			if (Physics.Raycast(ray, out hit, 1000, mask))
 			{
 				GameObject tmp = hit.collider.gameObject;
 				if(!tmp.collider.isTrigger){

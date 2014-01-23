@@ -4,7 +4,8 @@ using System.Collections;
 public class Escalator : MonoBehaviour {
 
 	public Vector3 direction;
-	public bool side = false, fl = true;
+	public bool side = false;
+	public bool allow = true;
 
 	void Start()
 	{
@@ -13,12 +14,6 @@ public class Escalator : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		if(col.tag == "Particle")
-		{
-			fl = false;
-			return;
-		}
-
 		if((col.tag == "Cub" || col.tag == "Current"))
 		{
 				if(Vector3.Distance(this.transform.position,
@@ -52,7 +47,7 @@ public class Escalator : MonoBehaviour {
 
 	void OnTriggerStay(Collider col)
 	{
-		if((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().dir != 0 && fl)
+		if((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().dir != 0 && (col.GetComponent<Cube>().EscaleFlag || allow))
 		{
 			col.transform.constantForce.force = 30f * direction;
 			if(side)
@@ -65,11 +60,6 @@ public class Escalator : MonoBehaviour {
 
 	void OnTriggerExit(Collider col)
 	{
-		if(col.tag == "Particle")
-		{
-			fl = true;
-			return;
-		}
 		if((col.tag == "Cub" || col.tag == "Current"))
 		{
 			col.GetComponent<Cube>().dir = 2;
