@@ -89,6 +89,9 @@ public class Escalator : MonoBehaviour {
 			{
 				col.transform.constantForce.force = 25f * direction;
 			}
+			col.transform.rotation = Quaternion.Slerp(col.transform.rotation,
+			                                          Quaternion.LookRotation(col.transform.constantForce.force), 
+			                                          1 * Time.deltaTime);
 
 		}
 	}

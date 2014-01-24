@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MoveCamera : MonoBehaviour {
 	public float camSpeed = 100; 
-	public float zoomSpeed = 1000;
+	public float zoomSpeed = 30000;
 	public float mouseSensitivity = 100;   
 	
 	private Transform _myTransform; 
