@@ -30,6 +30,7 @@ public class Sphere : MonoBehaviour {
 					lst_buf = GameObject.FindGameObjectsWithTag("Current");
 					foreach(GameObject lolka in lst_buf)
 					{
+						lolka.GetComponent<Cube>().EscaleFlag = true;
 						Cube tmps;
 						tmps = lolka.GetComponent<Cube>();
 						if(tmps.ind > tmp.ind)
@@ -41,6 +42,7 @@ public class Sphere : MonoBehaviour {
 					lst_buf = GameObject.FindGameObjectsWithTag("Cub");
 					foreach(GameObject lolka in lst_buf)
 					{
+						lolka.GetComponent<Cube>().EscaleFlag = true;
 						Cube tmps;
 						tmps = lolka.GetComponent<Cube>();
 						if(tmps.ind > tmp.ind)

@@ -32,6 +32,23 @@ public class Click : MonoBehaviour {
 		prt = new GameObject();
 	}
 
+	void FixedUpdate()
+	{
+		foreach(Vector3 svininka in sosi4ka)
+		{
+			
+			if(!script.cords.Contains(svininka))
+			{
+				(kuro4ka[sosi4ka.IndexOf(svininka)] as Collider).GetComponent<Escalator>().allow = true;
+
+				kuro4ka.RemoveAt(sosi4ka.IndexOf(svininka));
+				sosi4ka.Remove(svininka);
+				
+				break;
+			}
+		}
+	}
+
 	void Update () {
 		if (Input.GetMouseButtonDown(2))
 		{
@@ -42,35 +59,18 @@ public class Click : MonoBehaviour {
 			{
 				if((lst = GameObject.FindGameObjectsWithTag ("Current")).Length > 0)
 				{
-					if(kuro4ka.Count > 0)
-					{
-						foreach(Vector3 svininka in sosi4ka)
-						{
+		
 
-							if(!script.cords.Contains(svininka))
-							{
-								(kuro4ka[sosi4ka.IndexOf(svininka)] as Collider).GetComponent<Escalator>().allow = true;
-								kuro4ka.RemoveAt(sosi4ka.IndexOf(svininka));
-								sosi4ka.Remove(svininka);
 
-								break;
-							}
-						}
-					}
 					script.points.Add(Instantiate((script.points[0] as GameObject),(hit.point),new Quaternion()) as GameObject);
 					(script.points[(script.points.Count - 1)] as GameObject).transform.Rotate(new Vector3(270,0,0));
-					Ray up = new Ray();
-					up.origin = Vector3.up;
-					up.direction = hit.point;
-					RaycastHit hitUp;
-					int maskEscals = 1 << 11;
-					if(Physics.Raycast(up,out hitUp, 500, maskEscals))
-					{
-						hitUp.collider.GetComponent<Escalator>().allow = false;
-						sosi4ka.Add(hit.point);
-						kuro4ka.Add(hit.collider);
-					}
+
+
 					lst = GameObject.FindGameObjectsWithTag ("Current");
+					foreach (GameObject asdsdfs in lst)
+					{
+						asdsdfs.GetComponent<Cube>().EscaleFlag = true;
+					}
 					for (int i = 0; i < lst.Length - 1; i++)// del this
 					{
 						for (int j = i + 1; j < lst.Length; j++)
@@ -83,11 +83,25 @@ public class Click : MonoBehaviour {
 							}
 						}
 					}
+
+					RaycastHit hitUp;
+					if(Physics.Raycast(hit.point - new Vector3(0,25,0), Vector3.up ,out hitUp, 100, 1 << 11))
+					{
+						Debug.DrawRay(hit.point,Vector3.up * 100, Color.green, 50);
+						hitUp.collider.GetComponent<Escalator>().allow = false;
+						sosi4ka.Add(hit.point);
+						kuro4ka.Add(hitUp.collider);
+						foreach(GameObject tulenik in lst)
+						{
+							tulenik.GetComponent<Cube>().EscaleFlag = false;
+						}
+					}
+
 					script.cords.Add(hit.point);
 					script.cubes.Add(new ArrayList());
 					foreach(GameObject lalka in lst)
 					{
-						lalka.GetComponent<Cube>().EscaleFlag = false;
+
 						lalka.tag = "Cub";
 						lalka.GetComponent<Cube>().move = true;
 

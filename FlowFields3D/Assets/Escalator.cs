@@ -22,12 +22,12 @@ public class Escalator : MonoBehaviour {
 				                   (Vector3) GameObject.Find("Terrain").GetComponent<Script>().cords[col.GetComponent<Cube>().ind]))
 				{
 					if(col.transform.position.x -  
-					   ((Vector3) GameObject.Find("Terrain").GetComponent<Script>().cords[col.GetComponent<Cube>().ind]).x  > 10)
+					   ((Vector3) GameObject.Find("Terrain").GetComponent<Script>().cords[col.GetComponent<Cube>().ind]).x  > 1)
 					{
 						col.GetComponent<Cube>().dir = 1;
 					}
 					else if(col.transform.position.x -  
-				        ((Vector3) GameObject.Find("Terrain").GetComponent<Script>().cords[col.GetComponent<Cube>().ind]).x  < -10)
+				        ((Vector3) GameObject.Find("Terrain").GetComponent<Script>().cords[col.GetComponent<Cube>().ind]).x  < -1)
 					{
 						col.GetComponent<Cube>().dir = -1;
 					}
@@ -49,7 +49,7 @@ public class Escalator : MonoBehaviour {
 	{
 		if((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().dir != 0 && (col.GetComponent<Cube>().EscaleFlag || allow))
 		{
-			col.transform.constantForce.force = 30f * direction;
+			col.transform.constantForce.force = 25f * direction;
 			if(side)
 			{
 				col.transform.constantForce.force *= col.GetComponent<Cube>().dir;
