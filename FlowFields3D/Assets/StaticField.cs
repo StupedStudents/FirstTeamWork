@@ -5,10 +5,12 @@ public class StaticField : MonoBehaviour {
 
 	public Vector3 buf;
 	public Vector3 randpost;
+	private SphereTrigger cl;
 
 	void Start () {
 		buf = new Vector3(0,0,0);
 		randpost = new Vector3(0,0,0);
+		cl = GameObject.FindGameObjectWithTag("Cub").transform.FindChild("Sphere").GetComponent<SphereTrigger>();
 	}
 		
 	void OnTriggerStay(Collider col)
@@ -35,8 +37,9 @@ public class StaticField : MonoBehaviour {
 			randpost = force.normalized;
 			randpost.x = -Mathf.Sin(Mathf.PI/3f) * force.normalized.z + Mathf.Cos(Mathf.PI/3f) * force.normalized.x; 
 			randpost.z = Mathf.Cos (Mathf.PI/3f) * force.normalized.z + Mathf.Sin(Mathf.PI/3f) * force.normalized.x;
-
-			col.transform.constantForce.force += buf * 1.5f + 25 * Vector3.Reflect (force.normalized, randpost);
+			col.transform.constantForce.force += buf * 1.5f +
+				25 * Vector3.Reflect (force.normalized, randpost) * 
+					((cl.AngleAroundAxis (randpost, force.normalized, Vector3.up) > 0) ? 1 : -1);
 		}
 	}
 
