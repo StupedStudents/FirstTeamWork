@@ -55,7 +55,7 @@ public class Cube : MonoBehaviour {
 				{		
 					this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
 					                                           Quaternion.LookRotation((Vector3)(ter.cords[ind]) 
-					                        - this.transform.position), 5 * Time.deltaTime);
+					                        - this.transform.position), 0 * Time.deltaTime);
 					if(this.constantForce.force != new Vector3(0,0,0))
 					{
 						this.transform.rotation = Quaternion.Slerp(this.transform.rotation,

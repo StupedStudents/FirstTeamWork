@@ -87,11 +87,11 @@ public class Escalator : MonoBehaviour {
 			}
 			else if(!side)
 			{
-				col.transform.constantForce.force = 25f * direction;
+				col.transform.constantForce.force = 30f * direction;
 			}
 			col.transform.rotation = Quaternion.Slerp(col.transform.rotation,
 			                                          Quaternion.LookRotation(col.transform.constantForce.force), 
-			                                          1 * Time.deltaTime);
+			                                          Script.phi * Time.deltaTime);
 
 		}
 	}

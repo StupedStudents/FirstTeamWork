@@ -40,6 +40,13 @@ public class Click : MonoBehaviour {
 			if(!script.cords.Contains(svininka))
 			{
 				(kuro4ka[sosi4ka.IndexOf(svininka)] as Collider).GetComponent<Escalator>().allow = true;
+				if((kuro4ka[sosi4ka.IndexOf(svininka)] as Collider).transform.childCount > 0)
+				{
+					for(int i = 0; i < (kuro4ka[sosi4ka.IndexOf(svininka)] as Collider).transform.childCount; i++)
+					{
+						(kuro4ka[sosi4ka.IndexOf(svininka)] as Collider).transform.GetChild(i).GetComponent<Escalator>().allow = false;
+					}
+				}
 
 				kuro4ka.RemoveAt(sosi4ka.IndexOf(svininka));
 				sosi4ka.Remove(svininka);
@@ -89,6 +96,13 @@ public class Click : MonoBehaviour {
 					{
 						Debug.DrawRay(hit.point,Vector3.up * 100, Color.green, 50);
 						hitUp.collider.GetComponent<Escalator>().allow = false;
+						if(hitUp.collider.transform.childCount > 0)
+						{
+							for(int i = 0; i < hitUp.collider.transform.childCount; i++)
+							{
+								hitUp.collider.transform.GetChild(i).GetComponent<Escalator>().allow = false;
+							}
+						}
 						sosi4ka.Add(hit.point);
 						kuro4ka.Add(hitUp.collider);
 						foreach(GameObject tulenik in lst)
