@@ -8,11 +8,11 @@ public class Cube : MonoBehaviour {
 	public Script ter;
 	public float inTime = 0, times = 0, wait = 0;
 	public Vector3 cur = new Vector3(0,0,0);
-	public int dir = 2;
+	public int dir = 0;
 	public bool EscaleFlag = true;
 
 	void Start () {
-		dir = 2;
+		dir = 0;
 		force = GameObject.Find("Terrain").GetComponent<Cell>();
 		ter = GameObject.Find("Terrain").GetComponent<Script>();
 		cur = this.transform.position;

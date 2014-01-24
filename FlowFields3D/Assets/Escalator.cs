@@ -38,21 +38,56 @@ public class Escalator : MonoBehaviour {
 						
 				}
 				else
-				{
+				{ 
 					col.GetComponent<Cube>().dir = 0;
 				}
+			if(!side)
+			{
+				col.GetComponent<Cube>().dir = 0;
+			}
 
 		}
+
 	}
 
 	void OnTriggerStay(Collider col)
 	{
-		if((col.tag == "Cub" || col.tag == "Current") && col.GetComponent<Cube>().dir != 0 && (col.GetComponent<Cube>().EscaleFlag || allow))
+		/*if((col.tag == "Cub" || col.tag == "Current"))
 		{
-			col.transform.constantForce.force = 25f * direction;
-			if(side)
+
+				if(col.transform.position.x -  
+				   ((Vector3) GameObject.Find("Terrain").GetComponent<Script>().cords[col.GetComponent<Cube>().ind]).x  > 0)
+				{
+					col.GetComponent<Cube>().dir = 1;
+				}
+				else if(col.transform.position.x -  
+				        ((Vector3) GameObject.Find("Terrain").GetComponent<Script>().cords[col.GetComponent<Cube>().ind]).x  < 0)
+				{
+					col.GetComponent<Cube>().dir = -1;
+				}
+				else
+				{
+					col.GetComponent<Cube>().dir = 0;
+				}
+			if(!side)
 			{
+				col.GetComponent<Cube>().dir = 0;
+			}
+			
+		}*/
+
+
+		if((col.tag == "Cub" || col.tag == "Current") && (col.GetComponent<Cube>().EscaleFlag || allow))
+		{
+
+			if(side && col.GetComponent<Cube>().dir != 0 )
+			{
+				col.transform.constantForce.force = 25f * direction;
 				col.transform.constantForce.force *= col.GetComponent<Cube>().dir;
+			}
+			else if(!side)
+			{
+				col.transform.constantForce.force = 25f * direction;
 			}
 
 		}
@@ -62,7 +97,7 @@ public class Escalator : MonoBehaviour {
 	{
 		if((col.tag == "Cub" || col.tag == "Current"))
 		{
-			col.GetComponent<Cube>().dir = 2;
+			//col.GetComponent<Cube>().dir = 1;
 		}
 
 	}
