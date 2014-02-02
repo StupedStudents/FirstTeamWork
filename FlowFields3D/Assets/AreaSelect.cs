@@ -33,8 +33,8 @@ public class AreaSelect : MonoBehaviour
 				}
 				
 				selectionTexture = GameObject.FindGameObjectWithTag ("Player").renderer.material.mainTexture;
-				terrainLayerMask = 1 << 0;
-				nonTerrainLayerMask = ~(1 << 0);
+				terrainLayerMask = 1 << 12;
+				nonTerrainLayerMask = ~(1 << 12);
 		}
 		void OnGUI ()
 		{
@@ -73,12 +73,13 @@ public class AreaSelect : MonoBehaviour
 						}	
 				}
 		}
+
 		void Mouse1Down (Vector2 screenPosition)
 		{
 				mouseButton1DownPoint = screenPosition;
 				RaycastHit hit;
 				Ray ray = camera.ScreenPointToRay (mouseButton1DownPoint);  
-				if (Physics.Raycast (ray, out hit, raycastLength, 1 << 0)) { 
+				if (Physics.Raycast (ray, out hit, raycastLength, 1 << 12)) { 
 						if (hit.collider.tag == "Terrain") {
 								mouseButton1DownTerrainHitPoint = hit.point;
 								selectionPointStart = hit.point;
@@ -91,6 +92,7 @@ public class AreaSelect : MonoBehaviour
 						}
 				}
 		}
+
 		public void SelectUnitsInArea (Vector3 point1, Vector3 point2)
 		{
 				if (point2.x < point1.x) {
